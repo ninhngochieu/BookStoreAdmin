@@ -1,0 +1,28 @@
+<div *ngIf="data.type != 'confirm'">
+  <h1 [ngClass]="data.type" mat-dialog-title>
+    {{ data.type == "success" ? "Thành công" : "Thất bại" }}
+  </h1>
+  <div mat-dialog-content>
+    {{ data.message }}
+  </div>
+  <div mat-dialog-actions class="pb-3">
+    <button class="close-btn" mat-button mat-dialog-close>Đóng</button>
+  </div>
+</div>
+
+<div *ngIf="data.type === 'confirm'">
+  <h1 [ngClass]="data.type" mat-dialog-title>Xác nhận</h1>
+  <div mat-dialog-content>
+    {{ data.message }}
+  </div>
+  <div mat-dialog-actions class="pb-3">
+    <button
+      mat-button
+      (click)="dialogRef.close(true)"
+      class="mr-4 confirm-btn"
+    >
+      Đồng ý
+    </button>
+    <button mat-button (click)="dialogRef.close(false)">Hủy</button>
+  </div>
+</div>

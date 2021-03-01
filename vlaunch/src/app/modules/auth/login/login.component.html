@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="form-container position-relative">
+    <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form__title mb-4">AdiViet</div>
+      <div class="row m-0">
+        <mat-form-field class="form__field" appearance="fill">
+          <mat-label class="field__label">Tài khoản</mat-label>
+          <input
+            formControlName="username"
+            matInput
+            placeholder="Vui lòng nhập tài khoản"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div class="row m-0">
+        <mat-form-field class="form__field" appearance="fill" shouldLabelFloat>
+          <mat-label class="field__label">Mật khẩu</mat-label>
+          <input
+            formControlName="password"
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            required
+          />
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+          <mat-error *ngIf="loginForm.get('password').errors?.minlength"
+            >Mật khẩu lớn hơn 8 ký tự</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <div class="row m-0 justify-content-end">
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          [disabled]="loginForm.invalid"
+        >
+          Đăng nhập
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

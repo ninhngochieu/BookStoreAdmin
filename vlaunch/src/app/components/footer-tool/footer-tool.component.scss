@@ -1,0 +1,31 @@
+@import "../../../variables.scss";
+
+:host {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.bg-red {
+  background-color: red;
+  color: white;
+}
+
+.bg-theme {
+  background-color: $themeColor;
+  color: white;
+}
+
+.footer-toolbar {
+  height: 70px;
+  background: $backgroundColor;
+  padding: 20px;
+  border-top: 1px solid transparent;
+  transition: box-shadow 150ms;
+
+  button {
+    outline: none;
+    text-transform: uppercase;
+  }
+}

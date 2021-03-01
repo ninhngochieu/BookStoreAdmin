@@ -1,0 +1,18 @@
+<h1 mat-dialog-title class="mb-1">Lựa Chọn Hình Ảnh Cho Biến Thể</h1>
+<div mat-dialog-content class="pt-4 pb-4">
+  <p *ngIf="!data.images || data.images.length === 0">
+    Sản phẩm hiện chưa có hình ảnh vui lòng cập nhật hình ảnh.
+  </p>
+  <div class="image-container" *ngIf="data.images && data.images.length > 0">
+    <div
+      class="product-image"
+      (click)="dialogRef.close(image)"
+      *ngFor="let image of data.images"
+    >
+      <img src="{{ image.image }}" alt="" />
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions class="justify-content-end">
+  <button mat-button mat-dialog-close>Quay lại</button>
+</div>

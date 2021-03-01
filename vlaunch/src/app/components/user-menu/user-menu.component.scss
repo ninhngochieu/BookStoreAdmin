@@ -1,0 +1,30 @@
+.user__menu {
+  text-align: right;
+  position: relative;
+  .mat-button {
+    padding: 5px 20px;
+    border-radius: 30px;
+    background-color: #ffffff;
+    outline: none;
+
+    ::ng-deep {
+      .mat-button-wrapper {
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        .avatar {
+          width: 40px;
+          height: 40px;
+          img {
+            border-radius: 50%;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  .mat-menu-item {
+  }
+}

@@ -1,0 +1,60 @@
+@import "../../../variables.scss";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  outline: none;
+  width: 100%;
+
+  .mat-list-item.active {
+    .mat-icon {
+      color: $themeColor;
+    }
+    ::ng-deep {
+      .mat-list-item-content {
+        color: $themeColor;
+      }
+    }
+  }
+  &:hover,
+  &:focus {
+    > .mat-list-item:not(.expanded) {
+      .mat-icon {
+        color: $themeColor;
+      }
+      ::ng-deep {
+        .mat-list-item-content {
+          color: $themeColor;
+        }
+      }
+    }
+  }
+}
+
+.mat-list-item {
+  padding: 8px 0;
+  align-items: center;
+  display: flex;
+  width: auto;
+  height: 56px;
+
+  ::ng-deep {
+    .mat-list-item-content {
+      width: 100%;
+      text-transform: uppercase;
+    }
+  }
+
+  .routeIcon {
+    margin-right: 20px;
+    width: 32px;
+    height: 32px;
+    font-size: 32px;
+  }
+
+  .moreIcon {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+  }
+}

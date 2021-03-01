@@ -1,0 +1,23 @@
+<div class="footer-toolbar">
+  <div class="d-flex p-0">
+    <button
+      *ngIf="delete != null"
+      class="p-0 bg-red"
+      mat-button
+      (click)="delete()"
+    >
+      Xóa
+    </button>
+    <div style="flex: 1"></div>
+    <button class="p-0" mat-button (click)="goBack()">Quay lại</button>
+    <button
+      *ngIf="submit != null"
+      class="p-0 bg-theme ml-5"
+      mat-button
+      (click)="submit()"
+      [disabled]="disabledSubmit"
+    >
+      Lưu
+    </button>
+  </div>
+</div>

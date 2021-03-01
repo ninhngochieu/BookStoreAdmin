@@ -1,0 +1,183 @@
+@import "../../../variables.scss";
+
+.page-title {
+  font-size: 26px;
+  font-weight: 400;
+}
+
+.mat-card-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  width: 100%;
+
+  ::ng-deep {
+    .mat-card-header-text {
+      width: 100%;
+      margin: 0;
+    }
+  }
+}
+
+.mat-list-item {
+  height: auto;
+  padding: 8px 10px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.active {
+    border-left: 3px solid $themeColor;
+  }
+
+  &:hover {
+    background-color: $themeHoverColor;
+  }
+  img {
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+    margin-right: 20px;
+  }
+}
+
+.card-footer {
+  margin: 0;
+  background-color: transparent;
+  button {
+    text-transform: uppercase;
+    color: $themeColor;
+  }
+}
+
+.select-field {
+  ::ng-deep {
+    .mat-form-field-flex {
+      background-color: #ffffff;
+      border: 1px solid $themeColor;
+      border-radius: 4px;
+      padding: 4px 10px 0px 10px;
+      height: 56px;
+    }
+
+    .mat-form-field-underline {
+      height: 0;
+    }
+  }
+}
+
+.half-width {
+  width: 48%;
+}
+
+.title-with-button {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  span {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  a, button {
+    cursor: pointer;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: $themeColor;
+    outline: none;
+    padding: 5px;
+
+    &:disabled {
+      color: grey;
+    }
+  }
+}
+
+.mat-card-content {
+  p {
+    font-size: 16px;
+  }
+
+  .product-image {
+    width: 148px;
+    border: 1px solid #eaeaea;
+    height: 148px;
+    padding: 16px;
+    overflow: hidden;
+    position: relative;
+    background: #ffffff;
+    border-radius: 8px;
+
+    &:hover {
+      .image-tool {
+        display: block;
+      }
+    }
+
+    .image-tool {
+      top: 0;
+      left: 0;
+      width: 148px;
+      cursor: pointer;
+      height: 148px;
+      display: none;
+      position: absolute;
+      background: rgba(0, 0, 0, 0.3);
+
+      .tool-btn {
+        color: red;
+        margin: 8px;
+        outline: none;
+      }
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      user-select: none;
+    }
+  }
+}
+
+.mat-form-field {
+  ::ng-deep {
+    .mat-form-field-flex {
+      background-color: #ffffff;
+      border: 1px solid $themeColor;
+      border-radius: 4px;
+    }
+
+    .mat-form-field-underline {
+      height: 0;
+    }
+  }
+
+  .mat-label {
+    color: $themeColor;
+  }
+}
+
+.half-width {
+  width: 48%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  .suffix-text {
+    position: absolute;
+    bottom: -5px;
+    font-size: 14px;
+    color: rgba($color: #000000, $alpha: 0.7);
+  }
+}

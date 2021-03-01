@@ -1,0 +1,49 @@
+@import "../../../variables.scss";
+
+:host {
+  display: block;
+  padding: 15px 20px 0;
+  text-align: right;
+
+  .paginator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .mat-icon {
+      font-size: 24px;
+      line-height: 20px;
+      width: initial;
+      height: initial;
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      margin-bottom: 0;
+
+      li {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+        font-weight: 500;
+        text-align: center;
+        margin: 0 5px;
+        padding: 5px;
+        border: 1px solid transparent;
+        border-radius: 50%;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $themeColor;
+        }
+      }
+
+      li.active {
+        background-color: $themeColor;
+      }
+    }
+  }
+}

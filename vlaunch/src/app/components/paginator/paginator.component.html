@@ -1,0 +1,26 @@
+<div class="paginator" *ngIf="paginatorData">
+  <div>
+    Tổng cộng có {{paginatorData.total}} sản phẩm
+  </div>
+  <ul>
+    <li
+      *ngIf="paginatorData.previous_page"
+      (click)="selectPage(paginatorData.previous_page)"
+    >
+      <mat-icon>navigate_before</mat-icon>
+    </li>
+    <li
+      [class.active]="page == paginatorData.current_page"
+      (click)="selectPage(page)"
+      *ngFor="let page of paginatorData.page_list"
+    >
+      {{ page }}
+    </li>
+    <li
+      *ngIf="paginatorData.next_page"
+      (click)="selectPage(paginatorData.next_page)"
+    >
+      <mat-icon>navigate_next</mat-icon>
+    </li>
+  </ul>
+</div>

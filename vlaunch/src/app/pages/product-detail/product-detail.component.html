@@ -1,0 +1,325 @@
+<div class="row mb-4">
+  <div class="col align-items-center justify-content-between d-flex">
+    <span class="page-title">Sản phẩm</span>
+  </div>
+</div>
+<form class="row" [formGroup]="productForm">
+  <div class="col-md-8 col-12">
+    <!-- block  -->
+    <mat-card class="p-4 mb-4">
+      <mat-card-header>
+        <mat-card-title>Thông Tin Chung</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="pt-4">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Tên sản phẩm</mat-label>
+          <input matInput formControlName="name" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Mô tả ngắn</mat-label>
+          <textarea matInput formControlName="brief"></textarea>
+        </mat-form-field>
+        <div
+          class="quill-input-field"
+          [class.error]="
+            productForm.get('content').errors?.required &&
+            productForm.get('content').dirty
+          "
+        >
+          <span class="label d-block mb-2">Mô tả chi tiết</span>
+          <input type="hidden" formControlName="content" />
+          <quill-editor
+            formControlName="content"
+            [placeholder]="'Nhập mô tả sản phẩm...'"
+          ></quill-editor>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- block  -->
+    <mat-card class="mt-4 mb-4" *ngIf="productDetailService.method == 'put'">
+      <mat-card-header class="d-flex align-item-center">
+        <mat-card-title class="title-with-button">
+          <span> Hình Ảnh </span>
+          <label class="label" for="file-input">TẢI LÊN HÌNH ẢNH</label>
+          <input
+            id="file-input"
+            type="file"
+            class="d-none"
+            (change)="uploadImage($event.target.files[0])"
+          />
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="pt-4 pb-4">
+        <div *ngIf="images.length === 0">Sản phẩm chưa có hình ảnh.</div>
+        <div class="image-container">
+          <div class="product-image" *ngFor="let image of images">
+            <div class="image-tool">
+              <div class="d-flex justify-content-end">
+                <button
+                  mat-icon-button
+                  class="tool-btn"
+                  (click)="deleteImage(image)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+            <img src="{{ image.image_small }}" alt="{{ product.name }}" />
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="p-4 mb-4" *ngIf="productDetailService.method == 'put'">
+      <mat-card-header>
+        <mat-card-title class="title-with-button">
+          <span> Thuộc Tính </span>
+          <a (click)="addSpec()" class="p-0">THÊM THUỘC TÍNH</a>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="mt-4 mb-3">
+        <div *ngIf="specs.length === 0">Sản phẩm chưa có thuộc tính.</div>
+        <div class="row attribute" *ngFor="let spec of specs; let i = index">
+          <div class="col-5 pr-0">
+            <mat-form-field class="full-width select-field">
+              <input
+                type="text"
+                placeholder="Thuộc tính"
+                matInput
+                [matAutocomplete]="attribute"
+                [formControl]="specControls[i].attC"
+              />
+              <mat-autocomplete
+                autoActiveFirstOption
+                #attribute="matAutocomplete"
+                [displayWith]="displayProperty"
+              >
+                <mat-option
+                  *ngFor="
+                    let attribute of specControls[i].filteredAttributes | async
+                  "
+                  [value]="attribute"
+                >
+                  {{ attribute.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div class="col-5 pr-0">
+            <mat-form-field class="full-width select-field">
+              <input
+                type="text"
+                placeholder="Giá trị thuộc tính"
+                matInput
+                [formControl]="specControls[i].attItemC"
+                [matAutocomplete]="attributeItem"
+              />
+              <mat-autocomplete
+                autoActiveFirstOption
+                #attributeItem="matAutocomplete"
+                [displayWith]="displayProperty"
+              >
+                <mat-option
+                  *ngFor="
+                    let attributeItem of specControls[i].attC.value
+                      .attribute_items
+                  "
+                  [value]="attributeItem"
+                >
+                  {{ attributeItem.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div class="col-2 d-flex flex-nowrap">
+            <button mat-icon-button class="mr-1" (click)="updateProductSpec(i)">
+              <mat-icon>done</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteSpec(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- block -->
+    <mat-card class="p-4 mb-4">
+      <mat-card-header>
+        <mat-card-title>Giá Thành</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="pt-4">
+        <mat-form-field appearance="fill" class="half-width">
+          <mat-label>Giá</mat-label>
+          <input
+            matInput
+            type="number"
+            placeholder="Ex. 120000"
+            formControlName="price"
+          />
+          <span matSuffix>VNĐ</span>
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- block -->
+
+    <mat-card class="p-4 mb-4" *ngIf="productDetailService.method == 'put'">
+      <mat-card-header class="d-flex align-item-center">
+        <mat-card-title class="title-with-button">
+          <span>Biến thể</span>
+          <a (click)="variantUrl()" class="p-0">TẠO BIẾN THỂ</a>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="m-0 pt-3">
+        <mat-list class="variant-list p-0">
+          <mat-list-item
+            class="variant-item"
+            (click)="variantUrl(variant.id)"
+            *ngFor="let variant of productDetailService.variants$ | async"
+          >
+            <div>
+              <img
+                src="{{
+                  variant.images.length > 0
+                    ? variant.images[0].image
+                    : product.default_image
+                }}"
+              />
+              {{ variant.name }}
+            </div>
+            <span class="price">{{
+              (variant.price_override ? variant.price_override : product.price)
+                | formatPrice
+            }}</span>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-md-4 col-12">
+    <!-- block -->
+    <mat-card class="pb-2 pl-4 pr-4 pt-4">
+      <mat-card-header>
+        <mat-card-title>Sắp xếp sản phẩm</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="pt-4">
+        <mat-form-field class="full-width select-field field-line">
+          <input
+            type="text"
+            placeholder="Danh mục"
+            matInput
+            formControlName="category_id"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete
+            autoActiveFirstOption
+            #auto="matAutocomplete"
+            [displayWith]="displayProperty"
+          >
+            <mat-option
+              *ngFor="let category of filteredCategories | async"
+              [value]="category"
+            >
+              {{ category.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field class="full-width select-field field-line">
+          <input
+            type="text"
+            placeholder="Loại sản phẩm"
+            matInput
+            formControlName="product_type_id"
+            [matAutocomplete]="product_type_id"
+            [readonly]="productDetailService.method == 'put'"
+          />
+          <mat-autocomplete
+            autoActiveFirstOption
+            #product_type_id="matAutocomplete"
+            [displayWith]="displayProperty"
+          >
+            <mat-option
+              *ngFor="let types of filteredTypes | async"
+              [value]="types"
+            >
+              {{ types.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field class="full-width select-field field-line">
+          <input
+            type="text"
+            placeholder="Đơn vị tính"
+            matInput
+            formControlName="unit_id"
+            [matAutocomplete]="autoNationality"
+          />
+          <mat-autocomplete
+            autoActiveFirstOption
+            #autoNationality="matAutocomplete"
+            [displayWith]="displayProperty"
+          >
+            <mat-option
+              *ngFor="let unit of filteredUnits | async"
+              [value]="unit"
+            >
+              {{ unit.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field class="full-width select-field">
+          <input
+            type="text"
+            placeholder="Thương hiệu"
+            matInput
+            formControlName="brand_id"
+            [matAutocomplete]="autoBrand"
+          />
+          <mat-autocomplete
+            autoActiveFirstOption
+            #autoBrand="matAutocomplete"
+            [displayWith]="displayProperty"
+          >
+            <mat-option
+              *ngFor="let brand of filteredBrands | async"
+              [value]="brand"
+            >
+              {{ brand.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- block -->
+    <mat-card class="mt-4" *ngIf="productDetailService.method == 'put'">
+      <mat-card-header>
+        <mat-card-title>Tình trạng</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-radio-group class="radio-group mt-3 ml-4">
+          <mat-radio-button
+            (change)="updateProductStatus($event)"
+            class="radio-button"
+            *ngFor="let status of statuses"
+            [value]="status.value"
+            [checked]="status.value === product.is_published"
+          >
+            {{ status.name }}
+          </mat-radio-button>
+        </mat-radio-group>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <app-footer-tool
+    [delete]="delete"
+    [submit]="submit"
+    [preUrl]="productDetailService.preUrl"
+    [disabledSubmit]="!this.productForm.valid"
+  ></app-footer-tool>
+</form>

@@ -1,0 +1,113 @@
+<div class="row mb-4">
+  <div class="col align-items-center justify-content-between d-flex">
+    <span class="page-title">Nhân viên</span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8 col-12">
+    <mat-card class="p-4 mb-4">
+      <mat-card-header>
+        <mat-card-title>Thông Tin Cá Nhân</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="pt-4">
+        <div class="content" [formGroup]="profileForm">
+          <label class="avatar" for="avatar">
+            <img
+              src="{{ profileForm.get('avatar').value | avatar: 'user' }}"
+              *ngIf="!uploadService.imgURL"
+            />
+            <img [src]="uploadService.imgURL" *ngIf="uploadService.imgURL" />
+            <div class="bg-hover">
+              <span>Chọn hình ảnh</span>
+            </div>
+            <input
+              class="d-none"
+              type="file"
+              id="avatar"
+              #avatar
+              (change)="uploadService.preview(avatar.files)"
+            />
+          </label>
+          <div class="input-container">
+            <mat-form-field appearance="fill" class="col-12 col-lg-6">
+              <mat-label>Họ và Tên</mat-label>
+              <input matInput formControlName="full_name" />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="col-12 col-lg-6">
+              <mat-label>Địa chỉ email</mat-label>
+              <input matInput formControlName="email" />
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="p-4 mb-4">
+      <mat-card-header>
+        <mat-card-title>Mật khẩu</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="pt-4">
+        <form
+          class="row"
+          [formGroup]="passwordForm"
+          (ngSubmit)="changePassword()"
+        >
+          <mat-form-field class="col-12 col-md-6" appearance="fill">
+            <mat-label>Mật khẩu cũ</mat-label>
+            <input
+              matInput
+              formControlName="old_password"
+              [type]="hide ? 'password' : 'text'"
+              required
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
+            <mat-error
+              *ngIf="passwordForm.get('old_password').errors?.minlength"
+              >Mật khẩu lớn hơn 8 ký tự</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field class="col-12 col-md-6" appearance="fill">
+            <mat-label>Mật khẩu mới</mat-label>
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              formControlName="new_password"
+              required
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
+            <mat-error
+              *ngIf="passwordForm.get('new_password').errors?.minlength"
+              >Mật khẩu lớn hơn 8 ký tự</mat-error
+            >
+          </mat-form-field>
+          <div class="col-12 text-right">
+            <button mat-button [disabled]="passwordForm.invalid">
+              Đổi mật khẩu
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <app-footer-tool [submit]="submit"></app-footer-tool>
+</div>
+
+<!-- [disabledSubmit]="formValid" -->

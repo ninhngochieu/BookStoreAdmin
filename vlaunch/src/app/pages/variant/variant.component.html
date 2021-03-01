@@ -1,0 +1,159 @@
+<div class="row mb-4">
+  <div class="col align-items-center justify-content-between d-flex">
+    <span class="page-title">Tạo biến thể</span>
+  </div>
+</div>
+
+<form [formGroup]="variantForm" class="row">
+  <div class="col-md-4 col-12 pr-2">
+    <mat-card class="p-0 mb-4">
+      <mat-card-header class="pl-4 pr-4 pt-4">
+        <mat-card-title>Các biến thể</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="m-0">
+        <mat-list class="p-0">
+          <mat-list-item
+            [class.active]="variant.id == variantService.id"
+            (click)="addNewVariant(variant.id)"
+            *ngFor="let variant of variantService.variants$ | async"
+          >
+            <img
+              src="{{
+                variant.images.length > 0
+                  ? variant.images[0].image
+                  : variantService.product.default_image
+              }}"
+              alt=""
+            />
+            {{ variant.name }}
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+      <mat-card-footer class="card-footer">
+        <button mat-button (click)="addNewVariant()">Thêm biến thể</button>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+  <div class="col-md-8 col-12 pr-2">
+    <mat-card class="p-4 mb-4">
+      <mat-card-header>
+        <mat-card-title>Thông tin chung</mat-card-title>
+      </mat-card-header>
+      <mat-card-content
+        formArrayName="attributes"
+        class="mt-4 d-flex flex-wrap justify-content-between"
+      >
+        <div *ngIf="attributes.controls.length === 0">Loại sản phẩm chưa có thuộc tính vui lòng thêm thuộc tính</div>
+        <mat-form-field
+          class="select-field half-width"
+          *ngFor="let _ of attributes.controls; index as i"
+        >
+          <input
+            type="text"
+            [placeholder]="productTypeAttribute[i].name"
+            [aria-label]="productTypeAttribute[i].name"
+            matInput
+            [formControlName]="i"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete
+            autoActiveFirstOption
+            #auto="matAutocomplete"
+            [displayWith]="displayProperty"
+          >
+            <mat-option
+              *ngFor="let option of productTypeAttribute[i].attribute_items"
+              [value]="option"
+            >
+              {{ option.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- block -->
+    <mat-card class="p-4 mb-4">
+      <mat-card-header>
+        <mat-card-title class="title-with-button">
+          <span> Hình Ảnh </span>
+          <button
+            mat-button
+            [disabled]="selectImage.length > 0"
+            class="select-btn"
+            (click)="openDialog()"
+          >
+            Chọn hình ảnh
+          </button>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="mt-4 mb-3">
+        <p *ngIf="selectImage.length === 0">
+          Chọn 1 hình ảnh biến thể từ các hình ảnh sản phẩm
+        </p>
+        <div class="product-image" *ngFor="let image of selectImage">
+          <div class="image-tool">
+            <div class="d-flex justify-content-end">
+              <button
+                mat-icon-button
+                class="tool-btn"
+                (click)="deleteImage(image)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+          <img src="{{ image.image }}" alt="" />
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- block -->
+    <mat-card class="p-4 mb-4">
+      <mat-card-header>
+        <mat-card-title>Giá thành</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="mt-4">
+        <div class="input-field half-width">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Giá</mat-label>
+            <input
+              formControlName="price_override"
+              matInput
+              type="number"
+              placeholder="Ex. 120000"
+            />
+            <span matSuffix>VNĐ</span>
+          </mat-form-field>
+          <span class="suffix-text">Không bắt buộc</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- block
+    <mat-card class="p-4 mb-4">
+      <mat-card-header>
+        <mat-card-title>Tồn kho</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="mt-4">
+        <div class="input-field half-width">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Số lượng</mat-label>
+            <input matInput type="number" placeholder="Ex. 100" min="0" />
+            <span matSuffix>VNĐ</span>
+            <mat-error *ngIf="priceControl.invalid"
+              >Giá thấp nhất: 100000</mat-error
+            >
+          </mat-form-field>
+          <span class="suffix-text">Không bắt buộc</span>
+        </div>
+      </mat-card-content>
+    </mat-card> -->
+  </div>
+  <app-footer-tool
+    [delete]="delete"
+    [submit]="submit"
+    [preUrl]="variantService.preUrl"
+    [disabledSubmit]="!variantForm.valid"
+  ></app-footer-tool>
+</form>
