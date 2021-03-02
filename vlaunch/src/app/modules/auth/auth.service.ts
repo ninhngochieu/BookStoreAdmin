@@ -35,7 +35,7 @@ export class AuthService {
   }
 
   login(data): void {
-    const url = 'auth/login';
+    const url = 'userauth/login';
     this.httpService.post(url, data).subscribe((res) => {
       console.warn(res);
       if (res && res.success) { // Thành công
@@ -54,11 +54,11 @@ export class AuthService {
   logout(): void {
     this.isLogin = false;
     localStorage.clear();
-    this.router.navigateByUrl('/auth/login');
+    this.router.navigateByUrl('/userauth/login');
   }
 
   getProfile(): any {
-    const url = 'auth/profile';
+    const url = 'userauth/profile';
     this.httpService.get(url).subscribe((res) => {
       if (res && res.success) {
         this.profileSubject.next({ ...res.data });
@@ -70,7 +70,7 @@ export class AuthService {
   }
 
   updateProfile(data: FormData): any {
-    const url = 'auth/profile';
+    const url = 'userauth/profile';
     this.httpService.put(url, data).subscribe((res) => {
       if (res && res.success) {
         this.profileSubject.next({ ...res.data });
@@ -84,7 +84,7 @@ export class AuthService {
   }
 
   changePassword(data: object): any {
-    const url = 'auth/change-password';
+    const url = 'userauth/change-password';
     this.httpService.put(url, data).subscribe((res) => {
       if (res && res.success) {
         this.profileSubject.next({ ...res.data });

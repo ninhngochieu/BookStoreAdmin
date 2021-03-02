@@ -23,15 +23,15 @@ export class ProfileComponent implements OnInit {
     new_password: ['', Validators.minLength(8)],
   });
 
-  public delete: Function;
-  public submit: Function;
+  public delete: any;
+  public submit: any;
 
   hide = true;
   uploadService = new UploadService();
 
   ngOnInit(): void {
     this.authService.profile.subscribe((value) => {
-      if (isEmpty(value)) return;
+      if (isEmpty(value)) { return; }
       this.profileForm.setValue({
         full_name: value.full_name,
         email: value.email,
@@ -43,11 +43,12 @@ export class ProfileComponent implements OnInit {
   }
 
   updateProfile(): void {
-    var formValue = this.profileForm.value;
-    var formData = new FormData();
+    const formValue = this.profileForm.value;
+    const formData = new FormData();
 
-    for (var key in formValue) {
-      if (key === 'avatar' || !formValue[key] || formValue[key] == '') continue;
+    for (const key in formValue) {
+      // tslint:disable-next-line:triple-equals
+      if (key === 'avatar' || !formValue[key] || formValue[key] === '') { continue; }
       formData.append(key, formValue[key]);
     }
 

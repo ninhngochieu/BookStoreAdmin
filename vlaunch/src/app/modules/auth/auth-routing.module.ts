@@ -7,7 +7,7 @@ const authRoutes: Routes = [
   {
     canActivate: [LoginGuard],
     component: LoginComponent,
-    path: 'auth/login',
+    path: 'userauth/login',
   },
 ];
 @NgModule({
