@@ -54,7 +54,8 @@ export class HttpService { // Tạo Http Services, có thể dùng Token Interce
   }
 
   put(url, data?): Observable<any> {
-    return this.request('put', url, data).pipe(
+    return this.request('put', url, data)
+      .pipe(
       switchMap((res) =>
         this.checkNotAuthenticated(res, () => this.put(url, data))
       )

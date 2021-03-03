@@ -62,11 +62,10 @@ export class ProfileComponent implements OnInit {
     }
     if (this.uploadService.imagePath) {
       formData.append('avatar', this.uploadService.imagePath);
+      console.log(this.uploadService.imagePath);
     }
-    formValue.forEach(x => {
-      console.warn(x);
-    });
-    // this.authService.updateProfile(formData);
+
+    this.authService.updateProfile(formData);
   }
 
   changePassword(): void {

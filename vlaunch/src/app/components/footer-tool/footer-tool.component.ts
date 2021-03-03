@@ -17,10 +17,10 @@ export class FooterToolComponent implements OnInit {
   constructor(private location: Location, private router: Router) {}
 
   @Input()
-  public delete: Function;
+  public delete: any;
 
   @Input()
-  public submit: Function;
+  public submit: any;
 
   @Input()
   public preUrl: [];
@@ -30,7 +30,7 @@ export class FooterToolComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  goBack() {
+  goBack(): any {
     if (this.preUrl) {
       this.router.navigate(this.preUrl);
     } else {
