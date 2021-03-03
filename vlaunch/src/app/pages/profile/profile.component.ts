@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { isEmpty, UploadService } from 'src/app/core/utils';
 import { AuthService } from 'src/app/modules/auth/auth.service';
+import jwtDecode from 'jwt-decode';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -13,7 +15,7 @@ export class ProfileComponent implements OnInit {
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   profileForm = this.fb.group({
-    full_name: ['', Validators.required],
+    name: ['', Validators.required],
     email: ['', Validators.email],
     avatar: [''],
   });
@@ -28,17 +30,17 @@ export class ProfileComponent implements OnInit {
 
   hide = true;
   uploadService = new UploadService();
+  imgPath = environment.IMG_ROOT;
 
   ngOnInit(): void {
     this.authService.profile.subscribe((value) => {
       if (isEmpty(value)) { return; }
       this.profileForm.setValue({
-        full_name: value.full_name,
+        name: value.name,
         email: value.email,
         avatar: value.avatar,
       });
     });
-
     this.submit = this.updateProfile.bind(this);
   }
 
@@ -47,16 +49,24 @@ export class ProfileComponent implements OnInit {
     const formData = new FormData();
 
     for (const key in formValue) {
-      // tslint:disable-next-line:triple-equals
-      if (key === 'avatar' || !formValue[key] || formValue[key] === '') { continue; }
+      if (formValue[key] === '') {
+        continue;
+      }
+      if (!formValue[key]) {
+        continue;
+      }
+      if (key === 'avatar') {
+        continue;
+      }
       formData.append(key, formValue[key]);
     }
-
     if (this.uploadService.imagePath) {
       formData.append('avatar', this.uploadService.imagePath);
     }
-
-    this.authService.updateProfile(formData);
+    formValue.forEach(x => {
+      console.warn(x);
+    });
+    // this.authService.updateProfile(formData);
   }
 
   changePassword(): void {

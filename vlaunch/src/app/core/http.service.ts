@@ -123,6 +123,6 @@ export class HttpService { // Tạo Http Services, có thể dùng Token Interce
   }
 
   private refreshToken(refresh): any {
-    return this.request('post', 'auth/token-refresh', { refresh });
+    return this.request('post', 'auth/UserAuth/refresh', { refresh });
   }
 }

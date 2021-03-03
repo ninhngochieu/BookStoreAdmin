@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserProfile } from 'src/app/models/user_profile';
 import { AuthService } from 'src/app/modules/auth/auth.service';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-user-menu',
@@ -11,6 +12,7 @@ export class UserMenuComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService) {}
 
   profile: UserProfile;
+  imgPath = environment.IMG_ROOT;
 
   ngOnInit(): void {
     this.authService.getProfile();

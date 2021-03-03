@@ -1,9 +1,10 @@
 export class UserProfile {
-  avatar: string;
+  name: string;
   email: string;
-  email_verified: boolean;
-  first_name: string;
-  full_name: string;
-  last_name: string;
-  phone: string;
+  avatar: string;
+  // emailVerified: boolean;
+  // first_name: string;
+  // full_name: string;
+  // last_name: string;
+  // phone: string;
 }

@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { UserProfile } from 'src/app/models/user_profile';
 import { AlertService } from '../../core/alert.service';
 import { HttpService } from '../../core/http.service';
+import {TokenService} from '../../core/token.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class AuthService {
   constructor(
     private httpService: HttpService,
     private alertService: AlertService,
-    private router: Router
+    private router: Router,
   ) {
     this.checkLogin();
   }
@@ -26,12 +27,7 @@ export class AuthService {
 
   checkLogin(): void {
     const token = localStorage.getItem('token');
-
-    if (!token || token == null || token === '') {
-      this.isLogin = false;
-    } else {
-      this.isLogin = true;
-    }
+    this.isLogin = token && token !== '';
   }
 
   login(data): void {
@@ -40,8 +36,6 @@ export class AuthService {
       console.warn(res);
       if (res && res.success) { // Thành công
         this.isLogin = true;
-        console.warn(res.data.acess);
-        console.warn(res.data.refresh);
         localStorage.setItem('token', res.data.access);
         localStorage.setItem('refreshToken', res.data.refresh);
         this.router.navigateByUrl('/dashboard');
@@ -54,14 +48,16 @@ export class AuthService {
   logout(): void {
     this.isLogin = false;
     localStorage.clear();
-    this.router.navigateByUrl('/userauth/login');
+    this.router.navigateByUrl('/auth/login').then(r => r);
   }
 
   getProfile(): any {
-    const url = 'userauth/profile';
+
+    const tokenService = new TokenService();
+    const url = 'userauth/profile/' + tokenService.getUserId();
     this.httpService.get(url).subscribe((res) => {
-      if (res && res.success) {
-        this.profileSubject.next({ ...res.data });
+      if (res?.success) {
+        this.profileSubject.next({...res.data});
       } else {
         this.alertService.errorAlert(res);
         return null;
@@ -70,7 +66,8 @@ export class AuthService {
   }
 
   updateProfile(data: FormData): any {
-    const url = 'userauth/profile';
+    const tokenService = new TokenService();
+    const url = 'userauth/profile/' + tokenService.getUserId();
     this.httpService.put(url, data).subscribe((res) => {
       if (res && res.success) {
         this.profileSubject.next({ ...res.data });

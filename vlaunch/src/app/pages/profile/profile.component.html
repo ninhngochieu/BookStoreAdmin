@@ -17,7 +17,7 @@
               src="{{ profileForm.get('avatar').value | avatar: 'user' }}"
               *ngIf="!uploadService.imgURL"
             />
-            <img [src]="uploadService.imgURL" *ngIf="uploadService.imgURL" />
+            <img [src]=" uploadService.imgURL" *ngIf=" uploadService.imgURL" />
             <div class="bg-hover">
               <span>Chọn hình ảnh</span>
             </div>
@@ -32,7 +32,7 @@
           <div class="input-container">
             <mat-form-field appearance="fill" class="col-12 col-lg-6">
               <mat-label>Họ và Tên</mat-label>
-              <input matInput formControlName="full_name" />
+              <input matInput formControlName="name" />
             </mat-form-field>
             <mat-form-field appearance="fill" class="col-12 col-lg-6">
               <mat-label>Địa chỉ email</mat-label>

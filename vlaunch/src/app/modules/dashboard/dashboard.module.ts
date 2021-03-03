@@ -14,10 +14,10 @@ import { QuillModule } from 'ngx-quill';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterToolComponent } from 'src/app/components/footer-tool/footer-tool.component';
 import { VariantComponent } from 'src/app/pages/variant/variant.component';
-import { AvatarPipe, FormatPricePipe } from 'src/app/core/pipes';
 import { ProfileComponent } from 'src/app/pages/profile/profile.component';
 import { AuthService } from '../auth/auth.service';
 import { PaginatorComponent } from 'src/app/components/paginator/paginator.component';
+import {AvatarPipe, FormatPricePipe} from '../../core/pipes';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,7 @@ import { PaginatorComponent } from 'src/app/components/paginator/paginator.compo
     VariantComponent,
     ProfileComponent,
     PaginatorComponent,
-  ],
+    ],
   imports: [
     CommonModule,
     MaterialModule,

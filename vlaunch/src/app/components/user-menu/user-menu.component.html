@@ -1,9 +1,9 @@
 <div class="user__menu pt-3 mb-4" *ngIf="profile">
   <button mat-button [matMenuTriggerFor]="menu">
     <div class="avatar mr-2">
-      <img src="{{ profile.avatar | avatar: 'user' }}" alt="" />
+      <img src="{{ profile.avatar | avatar: 'user'}}" alt="" />
     </div>
-    {{ profile.full_name }}
+    {{ profile.name }}
     <mat-icon class="ml-2">arrow_drop_down</mat-icon>
   </button>
   <!-- #enddocregion mat-menu-trigger-for -->

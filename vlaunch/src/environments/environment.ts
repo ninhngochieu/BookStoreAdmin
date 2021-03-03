@@ -6,4 +6,5 @@ export const environment = {
   production: false,
   CONFIG_CHECK: 'DEBUG_MOD',
   API_DOMAIN : 'https://localhost:5001/api/',
+  IMG_ROOT: 'https://localhost:5001/images/'
 };

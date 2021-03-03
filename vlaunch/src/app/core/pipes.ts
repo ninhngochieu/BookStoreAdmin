@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import {environment} from '../../environments/environment';
 
 @Pipe({ name: 'formatPrice' })
 export class FormatPricePipe implements PipeTransform {
@@ -13,9 +14,11 @@ export class FormatPricePipe implements PipeTransform {
 @Pipe({ name: 'avatar' })
 export class AvatarPipe implements PipeTransform {
   transform(value: string, type: string): string {
-    if (value && value !== '') { return value; }
-    return type === 'user'
-      ? 'assets/images/avatar.png'
-      : 'assets/images/placeholder-img.png';
+    if (value && value !== '') { return environment.IMG_ROOT + value; }
+    if (type === 'user') {
+      return 'assets/images/avatar.png';
+    } else {
+      return 'assets/images/placeholder-img.png';
+    }
   }
 }
