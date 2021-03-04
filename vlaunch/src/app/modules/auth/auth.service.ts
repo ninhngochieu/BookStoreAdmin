@@ -14,6 +14,7 @@ export class AuthService {
     private httpService: HttpService,
     private alertService: AlertService,
     private router: Router,
+    private tokenService: TokenService,
   ) {
     this.checkLogin();
   }
@@ -32,17 +33,31 @@ export class AuthService {
 
   login(data): void {
     const url = 'userauth/login';
-    this.httpService.post(url, data).subscribe((res) => {
-      console.warn(res);
-      if (res && res.success) { // Thành công
-        this.isLogin = true;
-        localStorage.setItem('token', res.data.access);
-        localStorage.setItem('refreshToken', res.data.refresh);
-        this.router.navigateByUrl('/dashboard');
-      } else {
-        this.alertService.errorAlert(res);
+    // this.httpService.post(url, data).subscribe((res) => {
+    //   console.warn(res);
+    //   if (res && res.success) { // Thành công
+    //     this.isLogin = true;
+    //     localStorage.setItem('token', res.data.access);
+    //     localStorage.setItem('refreshToken', res.data.refresh);
+    //     this.router.navigateByUrl('/dashboard');
+    //   } else {
+    //     this.alertService.errorAlert(res);
+    //   }
+    // });
+    this.httpService.postModify(url, data).subscribe(
+      (res) => {
+            this.isLogin = true;
+            localStorage.setItem('token', res.data.access);
+            localStorage.setItem('refreshToken', res.data.refresh);
+            this.router.navigateByUrl('/dashboard');
+            console.log(res);
+      },
+      (err) => {
+        err.error_message = 'Đăng nhập thất bại. Vui lòng thử lại!';
+        console.log(err);
+        this.alertService.errorAlertModify(err);
       }
-    });
+    );
   }
 
   logout(): void {
@@ -52,9 +67,7 @@ export class AuthService {
   }
 
   getProfile(): any {
-
-    const tokenService = new TokenService();
-    const url = 'userauth/profile/' + tokenService.getUserId();
+    const url = 'userauth/profile/' + this.tokenService.getUserId();
     this.httpService.get(url).subscribe((res) => {
       if (res?.success) {
         this.profileSubject.next({...res.data});
@@ -66,29 +79,48 @@ export class AuthService {
   }
 
   updateProfile(data: FormData): any {
-    const tokenService = new TokenService();
-    const url = 'userauth/profile/' + tokenService.getUserId();
-    this.httpService.put(url, data).subscribe((res) => {
-      if (res && res.success) {
+    const url = 'userauth/profile/' + this.tokenService.getUserId();
+    // this.httpService.put(url, data).subscribe((res) => {
+    //   if (res && res.success) {
+    //     this.profileSubject.next({ ...res.data });
+    //     this.alertService.successAlert(
+    //       'Cập nhật thông tin cá nhân thành công.'
+    //     );
+    //   } else {
+    //     this.alertService.errorAlert(res);
+    //   }
+    // });
+    this.httpService.putModify(url, data).subscribe(
+      (res) => {
         this.profileSubject.next({ ...res.data });
-        this.alertService.successAlert(
-          'Cập nhật thông tin cá nhân thành công.'
-        );
-      } else {
-        this.alertService.errorAlert(res);
-      }
-    });
+        this.alertService.successAlert('Cập nhật thông tin cá nhân thành công.');
+      },
+    (err) => {
+      err.error_message = 'Cập nhật thất bại. Vui lòng thử lại!';
+      this.alertService.errorAlertModify(err);
+    }
+    );
   }
 
   changePassword(data: object): any {
-    const url = 'userauth/change-password';
-    this.httpService.put(url, data).subscribe((res) => {
-      if (res && res.success) {
-        this.profileSubject.next({ ...res.data });
+    const url = 'userauth/change-password/' + this.tokenService.getUserId();
+    // this.httpService.put(url, data).subscribe((res) => {
+    //   if (res && res.success) {
+    //     this.profileSubject.next({ ...res.data });
+    //     this.alertService.successAlert('Đổi mật khẩu thành công');
+    //   } else {
+    //     this.alertService.errorAlert(res);
+    //   }
+    // });
+    this.httpService.putModify(url, data).subscribe(
+      (res) => {
+        this.profileSubject.next({...res.data});
         this.alertService.successAlert('Đổi mật khẩu thành công');
-      } else {
-        this.alertService.errorAlert(res);
+      },
+      (err) => {
+        err.error_message = 'Đổi mật khẩu thất bại. Vui lòng thử lại!';
+        this.alertService.errorAlertModify(err);
       }
-    });
+    );
   }
 }

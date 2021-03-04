@@ -18,6 +18,7 @@ export class HttpService { // Tạo Http Services, có thể dùng Token Interce
     if (!(token == null)) {
       headers = headers.append('Authorization', 'Bearer ' + token);
     }
+    headers.append('observe', 'response');
     return {
       headers,
     };
@@ -125,5 +126,15 @@ export class HttpService { // Tạo Http Services, có thể dùng Token Interce
 
   private refreshToken(refresh): any {
     return this.request('post', 'auth/UserAuth/refresh', { refresh });
+  }
+
+  postModify(url: string, data): any {
+    const options = this.getHttpOptions();
+    return this.http.post(this.DOMAIN + url, data, options);
+  }
+
+  putModify(url: string, data: any): any {
+    const options = this.getHttpOptions();
+    return this.http.put(this.DOMAIN + url, data, options);
   }
 }

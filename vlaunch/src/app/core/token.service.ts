@@ -7,7 +7,7 @@ import jwtDecode from 'jwt-decode';
 export class TokenService {
   private payload: any;
   constructor() {
-    this.payload = jwtDecode(this.getToken());
+
   }
 
   protected getToken(): string {
@@ -16,6 +16,12 @@ export class TokenService {
   }
 
   getUserId(): string {
+    this.payload = jwtDecode(this.getToken());
     return this.payload.id;
+  }
+
+  hasToken(): any {
+    return  localStorage.getItem('token');
+    return false;
   }
 }
