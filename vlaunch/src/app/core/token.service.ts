@@ -10,9 +10,8 @@ export class TokenService {
 
   }
 
-  protected getToken(): string {
-    const token = localStorage.getItem('token');
-    return token ? token : null;
+  getToken(): string {
+    return localStorage.getItem('token');
   }
 
   getUserId(): string {
@@ -22,6 +21,21 @@ export class TokenService {
 
   hasToken(): any {
     return  localStorage.getItem('token');
-    return false;
+  }
+
+  setToken(access): any {
+    localStorage.setItem('token', access);
+  }
+
+  setRefreshToken(refresh): any {
+    localStorage.setItem('refreshToken', refresh);
+  }
+
+  getRefreshToken(): any {
+    return localStorage.getItem('refreshToken');
+  }
+
+  clear(): any {
+    localStorage.clear();
   }
 }

@@ -3,18 +3,20 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap, timeout } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import {TokenService} from './token.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService { // Tạo Http Services, có thể dùng Token Interceptor
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private tokenService: TokenService) {
+  }
 
   private DOMAIN = environment.API_DOMAIN; // config in environment file
 
   private getHttpOptions(): any {
     let headers = new HttpHeaders();
-    const token = localStorage.getItem('token');
+    const token = this.tokenService.getToken();
     if (!(token == null)) {
       headers = headers.append('Authorization', 'Bearer ' + token);
     }
@@ -57,10 +59,10 @@ export class HttpService { // Tạo Http Services, có thể dùng Token Interce
   put(url, data?): Observable<any> {
     return this.request('put', url, data)
       .pipe(
-      switchMap((res) =>
-        this.checkNotAuthenticated(res, () => this.put(url, data))
-      )
-    );
+        switchMap((res) =>
+          this.checkNotAuthenticated(res, () => this.put(url, data))
+        )
+      );
   }
 
   delete(url): Observable<any> {
@@ -102,7 +104,9 @@ export class HttpService { // Tạo Http Services, có thể dùng Token Interce
   }
 
   private async checkNotAuthenticated(res, callback?: any, data?: object): Promise<any> {
-    if (!res) { return res; }
+    if (!res) {
+      return res;
+    }
     if (!res.success && res.error_code === 'not_authenticated') {
       const refresh = window.localStorage.getItem('refreshToken');
       if (!refresh || refresh === '') {
@@ -125,7 +129,7 @@ export class HttpService { // Tạo Http Services, có thể dùng Token Interce
   }
 
   private refreshToken(refresh): any {
-    return this.request('post', 'auth/UserAuth/refresh', { refresh });
+    return this.request('post', 'auth/UserAuth/refresh', {refresh});
   }
 
   postModify(url: string, data): any {
@@ -137,4 +141,81 @@ export class HttpService { // Tạo Http Services, có thể dùng Token Interce
     const options = this.getHttpOptions();
     return this.http.put(this.DOMAIN + url, data, options);
   }
+
+  refreshTokenModify(): any {
+    const options = this.getHttpOptions();
+    const url = 'UserAuth/refresh';
+    return this.http.post(this.DOMAIN + url, {refresh: this.tokenService.getRefreshToken()}, options);
+
+  }
+
+  putHandle(url: string, data: FormData): Observable<any>{
+    return this.requestModify(Method.put, url, data);
+  }
+  getHandle(url: string, data: FormData): Observable<any>{
+    return this.requestModify(Method.get, url, data);
+  }
+  postHandle(url: string, data: FormData): Observable<any>{
+    return this.requestModify(Method.post, url, data);
+  }
+  deleteHandle(url: string, data: FormData): Observable<any>{
+    return this.requestModify(Method.delete, url, data);
+  }
+
+  requestModify(method: Method, url: string, data?: any): Observable<any> {
+    const options = this.getHttpOptions();
+    let response: Observable<any>;
+
+    switch (method) {
+      case Method.get:
+        response = this.http
+          .get(this.DOMAIN + url, options)
+          .pipe(timeout(60000), catchError(this.processError(() => this.getHandle(url, data))));
+        break;
+      case Method.post:
+        response = this.http
+          .post(this.DOMAIN + url, data, options)
+          .pipe(timeout(60000), catchError(this.processError(() => this.postHandle(url, data))));
+        break;
+      case Method.put:
+        response = this.http
+          .put(this.DOMAIN + url, data, options)
+          .pipe(timeout(60000), catchError(this.processError(() => this.putHandle(url, data))));
+        break;
+      case Method.delete:
+        response = this.http
+          .delete(this.DOMAIN + url, options)
+          .pipe(timeout(60000), catchError(this.processError(() => this.deleteHandle(url, data))));
+        break;
+    }
+    return response;
+  }
+  private processError(callback?: any): any {
+    return async (error: any): Promise<any> => {
+      if (!this.tokenService.getRefreshToken() || this.tokenService.getRefreshToken() === '') {
+        return {
+          error_code: 'token_not_valid',
+          error_message: 'Phiên đăng nhập đã hết hạn vui lòng đăng nhập lại.',
+        };
+      }
+      const result = await this.refreshTokenModify().toPromise();
+      if (result.data.access){
+        this.tokenService.setToken(result.data.access);
+        this.tokenService.setRefreshToken(result.data.refresh);
+        return await callback().toPromise();
+      }else {
+        return {
+          error_code: 'token_not_valid',
+          error_message: 'Phiên đăng nhập đã hết hạn vui lòng đăng nhập lại.',
+        };
+      }
+    };
+  }
+}
+
+enum Method{
+  get,
+  post,
+  put,
+  delete
 }
