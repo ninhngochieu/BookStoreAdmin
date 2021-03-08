@@ -18,6 +18,8 @@ import { ProfileComponent } from 'src/app/pages/profile/profile.component';
 import { AuthService } from '../auth/auth.service';
 import { PaginatorComponent } from 'src/app/components/paginator/paginator.component';
 import {AvatarPipe, FormatPricePipe} from '../../core/pipes';
+import {MatTableModule} from "@angular/material/table";
+import {MatSortModule} from "@angular/material/sort";
 
 @NgModule({
   declarations: [

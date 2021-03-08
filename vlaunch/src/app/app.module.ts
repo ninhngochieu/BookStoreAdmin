@@ -13,6 +13,9 @@ import { AuthModule } from './modules/auth/auth.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { HeroesModule } from './modules/heroes/heroes.module';
 import { ImageDialogComponent } from './pages/variant/image-dialog/image-dialog.component';
+import { ProductModifyComponent } from './pages/product-modify/product-modify.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatSortModule} from "@angular/material/sort";
 
 
 @NgModule({
@@ -21,11 +24,11 @@ import { ImageDialogComponent } from './pages/variant/image-dialog/image-dialog.
     PageNotFoundComponent,
     AlertComponent,
     ImageDialogComponent,
+    ProductModifyComponent,
   ],
   imports: [
     BrowserModule,
     QuillModule.forRoot({ modules: QUILL_CONFIG }),
-    // import HttpClientModule after BrowserModule.
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,
@@ -33,6 +36,8 @@ import { ImageDialogComponent } from './pages/variant/image-dialog/image-dialog.
     HeroesModule,
     DashboardModule,
     AppRoutingModule,
+    MatTableModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent],

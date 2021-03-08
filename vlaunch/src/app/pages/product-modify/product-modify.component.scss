@@ -1,0 +1,126 @@
+//@import "../../../variables.scss";
+//
+//.theme-button {
+//  background-color: $themeColor;
+//  ::ng-deep {
+//    .mat-button-wrapper {
+//      color: #ffffff;
+//    }
+//  }
+//}
+//
+//.page-title {
+//  font-size: 26px;
+//  font-weight: 400;
+//}
+//
+//.content-header {
+//  padding: 20px;
+//  padding-bottom: 0;
+//  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+//}
+//
+//.tool-btn {
+//  text-transform: uppercase;
+//  color: $themeColor;
+//  outline: none;
+//}
+//
+//.mat-card {
+//  padding-left: 0;
+//  padding-right: 0;
+//}
+//
+//.filter-label {
+//  color: $textTheme;
+//}
+//
+//table {
+//  width: 100%;
+//
+//  tr.mat-row {
+//    height: 56px;
+//  }
+//
+//  .form-header-label {
+//    color: $textTheme;
+//  }
+//
+//  .mat-checkbox {
+//    ::ng-deep {
+//      .mat-checkbox-layout {
+//        margin-bottom: 0;
+//      }
+//    }
+//  }
+//
+//  .table-row:hover {
+//    background-color: $themeHoverColor;
+//    cursor: pointer;
+//  }
+//}
+//
+//.mat-header-cell {
+//  font-size: 16px;
+//}
+//
+//.mat-cell {
+//  font-size: 15px;
+//
+//  .product-detail {
+//    display: flex;
+//    align-items: center;
+//  }
+//
+//  .product-name {
+//    font-size: 16px;
+//    max-width: 300px;
+//    overflow: hidden;
+//    white-space: nowrap;
+//    text-overflow: ellipsis;
+//  }
+//
+//  .product-image {
+//    color: #bdbdbd;
+//    border: 1px solid #EAEAEA;
+//    display: inline-flex;
+//    padding: 4px;
+//    background: none;
+//    border-radius: 2px;
+//    width: 45px;
+//    height: 45px;
+//    margin-right: 10px;
+//
+//    img {
+//      width: 100%;
+//      height: 100%;
+//      object-fit: cover;
+//      text-align: center;
+//    }
+//  }
+//}
+//
+//@media (max-width: 767.98px) {
+//}
+
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+
+.mat-row:hover {
+  background-color: whitesmoke;
+  cursor: pointer;
+}
+th{
+  font-weight: 700;
+}

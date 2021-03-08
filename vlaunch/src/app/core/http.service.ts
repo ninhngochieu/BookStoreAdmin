@@ -149,10 +149,10 @@ export class HttpService { // Tạo Http Services, có thể dùng Token Interce
 
   }
 
-  putHandle(url: string, data: FormData): Observable<any>{
+  putHandle(url: string, data: object): Observable<any>{
     return this.requestModify(Method.put, url, data);
   }
-  getHandle(url: string, data: FormData): Observable<any>{
+  getHandle(url: string, data?: FormData): Observable<any>{
     return this.requestModify(Method.get, url, data);
   }
   postHandle(url: string, data: FormData): Observable<any>{
@@ -192,6 +192,11 @@ export class HttpService { // Tạo Http Services, có thể dùng Token Interce
   }
   private processError(callback?: any): any {
     return async (error: any): Promise<any> => {
+      if (error.status === 0){
+        return {
+          error_message: 'Mạng không ổn định, xin vui lòng kiểm tra lại đường truyền.',
+        };
+      }
       if (!this.tokenService.getRefreshToken() || this.tokenService.getRefreshToken() === '') {
         return {
           error_code: 'token_not_valid',
@@ -200,6 +205,7 @@ export class HttpService { // Tạo Http Services, có thể dùng Token Interce
       }
       const result = await this.refreshTokenModify().toPromise();
       if (result.data.access){
+        this.tokenService.clear();
         this.tokenService.setToken(result.data.access);
         this.tokenService.setRefreshToken(result.data.refresh);
         return await callback().toPromise();

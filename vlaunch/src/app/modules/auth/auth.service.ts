@@ -42,15 +42,8 @@ export class AuthService {
           this.tokenService.setToken(res.data.access);
           this.tokenService.setRefreshToken(res.data.refresh);
           this.router.navigateByUrl('/dashboard');
-          console.log(res);
         }else {
           this.alertService.errorAlert(res);
-        }
-      },
-      (err) => {
-        if (err.status === 0){
-          err.error_message = internetError;
-          this.alertService.errorAlert(err);
         }
       }
     );
@@ -78,7 +71,12 @@ export class AuthService {
     const url = 'userauth/profile/' + this.tokenService.getUserId();
     this.httpService.putHandle(url, data).subscribe(
       res => {
-        console.log(res);
+          if (res.success){
+            this.profileSubject.next({ ...res.data });
+            this.alertService.successAlert('Cập nhật thông tin cá nhân thành công.');
+          }else {
+            this.alertService.errorAlert(res);
+          }
       }
     );
     // this.httpService.put(url, data).subscribe((res) => {
@@ -126,7 +124,7 @@ export class AuthService {
     // );
   }
 
-  changePassword(data: object): any {
+  changePassword(data: any): any {
     const url = 'userauth/change-password/' + this.tokenService.getUserId();
     // this.httpService.put(url, data).subscribe((res) => {
     //   if (res && res.success) {
@@ -136,14 +134,35 @@ export class AuthService {
     //     this.alertService.errorAlert(res);
     //   }
     // });
-    this.httpService.putModify(url, data).subscribe(
-      (res) => {
-        this.profileSubject.next({...res.data});
+    // this.httpService.putModify(url, data).subscribe(
+    //   (res) => {
+    //     this.profileSubject.next({...res.data});
+    //     this.alertService.successAlert('Đổi mật khẩu thành công');
+    //   },
+    //   (err) => {
+    //     err.error_message = 'Đổi mật khẩu thất bại. Vui lòng thử lại!';
+    //     // this.alertService.errorAlertModify(err);
+    //   }
+    // );
+    this.httpService.putHandle(url, data).subscribe((res) => {
+      if (res && res.success) {
+        this.profileSubject.next({ ...res.data });
         this.alertService.successAlert('Đổi mật khẩu thành công');
-      },
-      (err) => {
-        err.error_message = 'Đổi mật khẩu thất bại. Vui lòng thử lại!';
-        // this.alertService.errorAlertModify(err);
+      } else {
+        this.alertService.errorAlert(res);
+      }
+    });
+  }
+
+  getAllBook(): any {
+    const url = 'Books';
+    this.httpService.getHandle(url).subscribe(
+      (res) => {
+        if (res.success){
+          return res.data;
+        }else {
+          return this.alertService.errorAlert({error_message: 'Lấy thông tin sách thất bại'});
+        }
       }
     );
   }

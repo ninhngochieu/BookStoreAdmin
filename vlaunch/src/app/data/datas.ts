@@ -21,6 +21,17 @@ export const NAV_ITEMS: NavItem[] = [
     iconName: 'storefront',
     route: 'dashboard/product',
   },
+  {
+    displayName: 'Sản phẩm modify',
+    iconName: 'storefront',
+    route: 'dashboard/product-modify',
+  },
+  {
+    displayName: 'Đơn hàng',
+    iconName: 'storefront',
+    route: 'dashboard/order',
+  },
+
   // {
   //   displayName: 'TextRouter',
   //   iconName: 'videocam',
