@@ -8,6 +8,7 @@ import { VariantComponent } from 'src/app/pages/variant/variant.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { DashboardComponent } from './dashboard.component';
 import {ProductModifyComponent} from "../../pages/product-modify/product-modify.component";
+import {ProductDetailModifyComponent} from "../../pages/product-detail-modify/product-detail-modify.component";
 
 const dashboardRoutes: Routes = [
   {
@@ -34,6 +35,7 @@ const dashboardRoutes: Routes = [
         path: 'product-modify',
         children: [
           { path: '', component: ProductModifyComponent },
+          {path: 'add', component: ProductDetailModifyComponent}
           ],
       },
       {

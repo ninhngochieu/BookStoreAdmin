@@ -16,6 +16,7 @@ import { ImageDialogComponent } from './pages/variant/image-dialog/image-dialog.
 import { ProductModifyComponent } from './pages/product-modify/product-modify.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
+import { ProductDetailModifyComponent } from './pages/product-detail-modify/product-detail-modify.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import {MatSortModule} from "@angular/material/sort";
     AlertComponent,
     ImageDialogComponent,
     ProductModifyComponent,
+    ProductDetailModifyComponent,
   ],
   imports: [
     BrowserModule,

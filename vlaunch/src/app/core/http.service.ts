@@ -149,7 +149,7 @@ export class HttpService { // Tạo Http Services, có thể dùng Token Interce
 
   }
 
-  putHandle(url: string, data: object): Observable<any>{
+  putHandle(url: string, data: any): Observable<any>{
     return this.requestModify(Method.put, url, data);
   }
   getHandle(url: string, data?: FormData): Observable<any>{
@@ -215,6 +215,12 @@ export class HttpService { // Tạo Http Services, có thể dùng Token Interce
           error_message: 'Phiên đăng nhập đã hết hạn vui lòng đăng nhập lại.',
         };
       }
+      // if (error.status === 401 ){
+      //   return {
+      //     error_code: 'token_not_valid',
+      //     error_message: 'Phiên đăng nhập đã hết hạn vui lòng đăng nhập lại.',
+      //   };
+      // }
     };
   }
 }

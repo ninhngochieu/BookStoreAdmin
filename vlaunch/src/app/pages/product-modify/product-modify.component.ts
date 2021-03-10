@@ -73,14 +73,5 @@ export class ProductModifyComponent implements OnInit, AfterViewInit{
   changeStatus($event: MatSlideToggleChange, id): any {
     const statusBook = !$event.checked;
     this.productModifyService.changeStatusBook(id, statusBook);
-    if (!statusBook){
-      this.matSnackBar.open('Đã kích hoạt', 'Close', {
-        duration: 3000
-      });
-    }else{
-      this.matSnackBar.open('Đã vô hiệu hoá',  'Close', {
-        duration: 3000
-      });
-    }
   }
 }
