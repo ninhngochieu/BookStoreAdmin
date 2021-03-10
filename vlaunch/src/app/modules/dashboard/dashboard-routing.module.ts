@@ -12,9 +12,9 @@ import {ProductDetailModifyComponent} from "../../pages/product-detail-modify/pr
 
 const dashboardRoutes: Routes = [
   {
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     path: 'dashboard',
-    runGuardsAndResolvers: 'always',
+    // runGuardsAndResolvers: 'always',
     children: [
       {
         path: '',
