@@ -13,98 +13,220 @@
 </div>
 
 <div class="content">
-  <mat-card class="mb-4">
-    <mat-card-content>
-      <mat-form-field>
-        <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
-      </mat-form-field>
-
-      <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort>
-
-          <!-- ID Column -->
-          <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-            <td mat-cell *matCellDef="let row"> {{row.id}} </td>
-          </ng-container>
-
-          <!-- Progress Column -->
-          <ng-container matColumnDef="bookName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Book </th>
-            <td mat-cell *matCellDef="let row"> {{row.bookName}} </td>
-          </ng-container>
-
-          <!-- Name Column -->
-          <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
-            <td mat-cell *matCellDef="let row"> {{row.price}} </td>
-          </ng-container>
-
-          <!-- Color Column -->
-          <ng-container matColumnDef="quantity">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
-            <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.quantity}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="publicationDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
-            <td mat-cell *matCellDef="let row">
-              {{row.publicationDate}}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="sku">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>SKU</th>
-            <td mat-cell *matCellDef="let row">
-            {{row.sku}}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
-            <td mat-cell *matCellDef="let row">
-              {{row.sku}}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="mainImage">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Image</th>
-            <td mat-cell *matCellDef="let row">
-              <img style="margin: 10px" src="{{env.IMG_ROOT+row.mainImage}}" width="100" height="150" alt="">
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="categoryName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
-            <td mat-cell *matCellDef="let row">
-              {{row.categoryName}}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="authorName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Author</th>
-            <td mat-cell *matCellDef="let row">
-              {{row.authorName}}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="Action">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
-            <td mat-cell *matCellDef="let row">
-              <mat-slide-toggle [checked] = !row.private (change)="changeStatus($event, row.id)"></mat-slide-toggle>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-          <!-- Row shown when there is no matching data. -->
-          <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-          </tr>
-        </table>
-
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-      </div>
-    </mat-card-content>
-  </mat-card>
+  <div class="row">
+    <div class="col-md-8 col-12">
+      <mat-card class="mb-4">
+        <mat-card-content>
+          <mat-form-field>
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+          </mat-form-field>
+    
+          <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSort>
+    
+              <!-- ID Column -->
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+              </ng-container>
+    
+              <!-- Progress Column -->
+              <ng-container matColumnDef="bookName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Book </th>
+                <td mat-cell *matCellDef="let row"> {{row.bookName}} </td>
+              </ng-container>
+    
+              <!-- Name Column -->
+              <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+                <td mat-cell *matCellDef="let row"> {{row.price}} </td>
+              </ng-container>
+    
+              <!-- Color Column -->
+              <ng-container matColumnDef="quantity">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
+                <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.quantity}} </td>
+              </ng-container>
+    
+              <ng-container matColumnDef="publicationDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+                <td mat-cell *matCellDef="let row">
+                  {{row.publicationDate}}
+                </td>
+              </ng-container>
+    
+              <ng-container matColumnDef="sku">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>SKU</th>
+                <td mat-cell *matCellDef="let row">
+                {{row.sku}}
+                </td>
+              </ng-container>
+    
+              <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+                <td mat-cell *matCellDef="let row">
+                  {{row.sku}}
+                </td>
+              </ng-container>
+    
+              <ng-container matColumnDef="mainImage">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Image</th>
+                <td mat-cell *matCellDef="let row">
+                  <img style="margin: 10px" src="{{env.IMG_ROOT+row.mainImage}}" width="100" height="150" alt="">
+                </td>
+              </ng-container>
+    
+              <ng-container matColumnDef="categoryName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+                <td mat-cell *matCellDef="let row">
+                  {{row.categoryName}}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="authorName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Author</th>
+                <td mat-cell *matCellDef="let row">
+                  {{row.authorName}}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="Action">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-slide-toggle [checked] = !row.private (change)="changeStatus($event, row.id)"></mat-slide-toggle>
+                </td>
+              </ng-container>
+    
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+              <!-- Row shown when there is no matching data. -->
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+              </tr>
+            </table>
+    
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-md-4 col-12">
+      <!-- block -->
+      <mat-card class="pb-2 pl-4 pr-4 pt-4">
+        <mat-card-header>
+          <mat-card-title>Sắp xếp sản phẩm</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="pt-4">
+          <mat-form-field class="full-width select-field field-line">
+            <input
+              type="text"
+              placeholder="Danh mục"
+              matInput
+              formControlName="category_id"
+              [matAutocomplete]="auto"
+            />
+            <mat-autocomplete
+              autoActiveFirstOption
+              #auto="matAutocomplete"
+              [displayWith]="displayProperty"
+            >
+              <mat-option
+                *ngFor="let category of filteredCategories | async"
+                [value]="category"
+              >
+                {{ category.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+  
+          <mat-form-field class="full-width select-field field-line">
+            <input
+              type="text"
+              placeholder="Loại sản phẩm"
+              matInput
+              formControlName="product_type_id"
+              [matAutocomplete]="product_type_id"
+              [readonly]="productDetailService.method == 'put'"
+            />
+            <mat-autocomplete
+              autoActiveFirstOption
+              #product_type_id="matAutocomplete"
+              [displayWith]="displayProperty"
+            >
+              <mat-option
+                *ngFor="let types of filteredTypes | async"
+                [value]="types"
+              >
+                {{ types.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+  
+          <mat-form-field class="full-width select-field field-line">
+            <input
+              type="text"
+              placeholder="Đơn vị tính"
+              matInput
+              formControlName="unit_id"
+              [matAutocomplete]="autoNationality"
+            />
+            <mat-autocomplete
+              autoActiveFirstOption
+              #autoNationality="matAutocomplete"
+              [displayWith]="displayProperty"
+            >
+              <mat-option
+                *ngFor="let unit of filteredUnits | async"
+                [value]="unit"
+              >
+                {{ unit.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+  
+          <mat-form-field class="full-width select-field">
+            <input
+              type="text"
+              placeholder="Thương hiệu"
+              matInput
+              formControlName="brand_id"
+              [matAutocomplete]="autoBrand"
+            />
+            <mat-autocomplete
+              autoActiveFirstOption
+              #autoBrand="matAutocomplete"
+              [displayWith]="displayProperty"
+            >
+              <mat-option
+                *ngFor="let brand of filteredBrands | async"
+                [value]="brand"
+              >
+                {{ brand.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </mat-card-content>
+      </mat-card>
+  
+      <!-- block -->
+      <mat-card class="mt-4" *ngIf="productDetailService.method == 'put'">
+        <mat-card-header>
+          <mat-card-title>Tình trạng</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-radio-group class="radio-group mt-3 ml-4">
+            <mat-radio-button
+              (change)="updateProductStatus($event)"
+              class="radio-button"
+              *ngFor="let status of statuses"
+              [value]="status.value"
+              [checked]="status.value === product.is_published"
+            >
+              {{ status.name }}
+            </mat-radio-button>
+          </mat-radio-group>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
 </div>

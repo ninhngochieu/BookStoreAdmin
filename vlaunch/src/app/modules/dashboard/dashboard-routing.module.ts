@@ -11,9 +11,9 @@ import {ProductModifyComponent} from "../../pages/product-modify/product-modify.
 
 const dashboardRoutes: Routes = [
   {
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     path: 'dashboard',
-    runGuardsAndResolvers: 'always',
+    // runGuardsAndResolvers: 'always',
     children: [
       {
         path: '',
