@@ -155,7 +155,7 @@ export class HttpService { // Tạo Http Services, có thể dùng Token Interce
   getHandle(url: string, data?: FormData): Observable<any>{
     return this.requestModify(Method.get, url, data);
   }
-  postHandle(url: string, data: FormData): Observable<any>{
+  postHandle(url: string, data: any): Observable<any>{
     return this.requestModify(Method.post, url, data);
   }
   deleteHandle(url: string, data: FormData): Observable<any>{

@@ -48,11 +48,12 @@
         <mat-card-title>Thêm hình ảnh</mat-card-title>
       </mat-card-header>
       <mat-card-content>
+<!--        -->
         <label class="MainImage" for="MainImage">
           <img
-            src="{{ bookForm.get('MainImage').value}}"
+            src="{{ bookForm.get('MainImage').value | url}}"
             *ngIf="!uploadService.imgURL"
-          />
+           alt=""/>
           <img [src]=" uploadService.imgURL" *ngIf=" uploadService.imgURL" />
           <div class="bg-hover add-image-icon">
             <span class="material-icons">
@@ -67,12 +68,13 @@
             (change)="uploadService.preview(MainImage.files)"
           />
         </label>
-        <label class="Image1" for="Image1">
+<!--        -->
+        <label class="MainImage" for="Image1">
           <img
-            src="{{ bookForm.get('Image1').value}}"
-            *ngIf="!uploadService.imgURL"
-          />
-          <img [src]=" uploadService.imgURL" *ngIf=" uploadService.imgURL" />
+            src="{{ bookForm.get('Image1').value | url}}"
+            *ngIf="!uploadService1.imgURL"
+            alt=""/>
+          <img [src]=" uploadService1.imgURL" *ngIf=" uploadService1.imgURL" />
           <div class="bg-hover add-image-icon">
             <span class="material-icons">
               add_circle_outline
@@ -83,15 +85,16 @@
             type="file"
             id="Image1"
             #Image1
-            (change)="uploadService.preview(Image1.files)"
+            (change)="uploadService1.preview(Image1.files)"
           />
         </label>
-        <label class="Image2" for="Image2">
+<!--        -->
+        <label class="MainImage" for="Image2">
           <img
-            src="{{ bookForm.get('Image2').value}}"
-            *ngIf="!uploadService.imgURL"
-          />
-          <img [src]=" uploadService.imgURL" *ngIf=" uploadService.imgURL" />
+            src="{{ bookForm.get('Image2').value | url}}"
+            *ngIf="!uploadService2.imgURL"
+            alt=""/>
+          <img [src]=" uploadService2.imgURL" *ngIf=" uploadService2.imgURL" />
           <div class="bg-hover add-image-icon">
             <span class="material-icons">
               add_circle_outline
@@ -102,15 +105,16 @@
             type="file"
             id="Image2"
             #Image2
-            (change)="uploadService.preview(Image2.files)"
+            (change)="uploadService2.preview(Image2.files)"
           />
         </label>
-        <label class="Image3" for="Image3">
+<!--        -->
+        <label class="MainImage" for="Image3">
           <img
-            src="{{ bookForm.get('Image3').value}}"
-            *ngIf="!uploadService.imgURL"
-          />
-          <img [src]=" uploadService.imgURL" *ngIf=" uploadService.imgURL" />
+            src="{{ bookForm.get('Image3').value | url}}"
+            *ngIf="!uploadService3.imgURL"
+            alt=""/>
+          <img [src]=" uploadService3.imgURL" *ngIf=" uploadService3.imgURL" />
           <div class="bg-hover add-image-icon">
             <span class="material-icons">
               add_circle_outline
@@ -118,18 +122,19 @@
           </div>
           <input
             class="d-none"
-            type="file"0
+            type="file"
             id="Image3"
             #Image3
-            (change)="uploadService.preview(Image3.files)"
+            (change)="uploadService3.preview(Image3.files)"
           />
         </label>
-        <label class="Image4" for="Image4">
+<!--        -->
+        <label class="MainImage" for="Image4">
           <img
-            src="{{ bookForm.get('MainImage').value}}"
-            *ngIf="!uploadService.imgURL"
-          />
-          <img [src]=" uploadService.imgURL" *ngIf=" uploadService.imgURL" />
+            src="{{ bookForm.get('Image4').value | url}}"
+            *ngIf="!uploadService4.imgURL"
+            alt=""/>
+          <img [src]=" uploadService4.imgURL" *ngIf=" uploadService4.imgURL" />
           <div class="bg-hover add-image-icon">
             <span class="material-icons">
               add_circle_outline
@@ -140,26 +145,7 @@
             type="file"
             id="Image4"
             #Image4
-            (change)="uploadService.preview(Image4.files)"
-          />
-        </label>
-        <label class="Image5" for="Image5">
-          <img
-            src="{{ bookForm.get('Image5').value}}"
-            *ngIf="!uploadService.imgURL"
-          />
-          <img [src]=" uploadService.imgURL" *ngIf=" uploadService.imgURL" />
-          <div class="bg-hover add-image-icon">
-            <span class="material-icons">
-              add_circle_outline
-            </span>
-          </div>
-          <input
-            class="d-none"
-            type="file"
-            id="Image5"
-            #Image5
-            (change)="uploadService.preview(Image5.files)"
+            (change)="uploadService4.preview(Image4.files)"
           />
         </label>
       </mat-card-content>
@@ -196,18 +182,14 @@
           <mat-label>Số lượng</mat-label>
           <input type="number" matInput formControlName="Quantity" />
         </mat-form-field>
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>SKU</mat-label>
-          <input matInput formControlName="SKU" />
-        </mat-form-field>
       </mat-card-content>
     </mat-card>
 
   </div>
   <app-footer-tool
     [delete]="delete"
-    [submit]="submit"
     [preUrl]="preUrl"
-    [disabledSubmit]="disabledSubmit"
+    [submit]="submit"
+    [disabledSubmit]="bookForm.invalid"
   ></app-footer-tool>
 </form>

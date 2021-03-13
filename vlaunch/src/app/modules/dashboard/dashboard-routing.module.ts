@@ -35,7 +35,8 @@ const dashboardRoutes: Routes = [
         path: 'product-modify',
         children: [
           { path: '', component: ProductModifyComponent },
-          {path: 'add', component: ProductDetailModifyComponent}
+          {path: 'add', component: ProductDetailModifyComponent},
+          {path: 'edit/:id', component: ProductDetailModifyComponent}
           ],
       },
       {

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, Location} from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
@@ -45,7 +45,8 @@ import {AvatarPipe, FormatPricePipe, UrlPipe} from '../../core/pipes';
     ],
     providers: [NavService, AuthService],
     exports: [
-        FooterToolComponent
+        FooterToolComponent,
+        UrlPipe
     ]
 })
 export class DashboardModule {}
