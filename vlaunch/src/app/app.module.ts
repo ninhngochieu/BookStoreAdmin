@@ -14,9 +14,10 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { HeroesModule } from './modules/heroes/heroes.module';
 import { ImageDialogComponent } from './pages/variant/image-dialog/image-dialog.component';
 import { ProductModifyComponent } from './pages/product-modify/product-modify.component';
-import {MatTableModule} from "@angular/material/table";
-import {MatSortModule} from "@angular/material/sort";
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
 import { ProductDetailModifyComponent } from './pages/product-detail-modify/product-detail-modify.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import { ProductDetailModifyComponent } from './pages/product-detail-modify/prod
   ],
   imports: [
     BrowserModule,
-    QuillModule.forRoot({ modules: QUILL_CONFIG }),
+    QuillModule.forRoot({modules: QUILL_CONFIG}),
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,
@@ -39,7 +40,8 @@ import { ProductDetailModifyComponent } from './pages/product-detail-modify/prod
     DashboardModule,
     AppRoutingModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

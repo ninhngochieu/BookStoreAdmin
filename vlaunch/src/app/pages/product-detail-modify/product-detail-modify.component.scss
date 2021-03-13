@@ -258,3 +258,23 @@ quill-editor {
     }
   }
 }
+.mat-card-content{
+  padding-top: 10px;
+  .MainImage{
+    height: 150px;
+    width: 150px;
+    border: 2px dotted $themeColor;
+    position: relative;
+      .add-image-icon{
+          span{
+            font-size: 50px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+      }
+    }
+  }
+
+

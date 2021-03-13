@@ -3,7 +3,7 @@
     <span class="page-title">Sản phẩm</span>
   </div>
 </div>
-<form class="row">
+<form class="row" [formGroup]="bookForm">
   <div class="col-md-8 col-12">
     <!-- block  -->
     <mat-card class="p-4 mb-4">
@@ -13,17 +13,11 @@
       <mat-card-content class="pt-4">
         <mat-form-field appearance="fill" class="full-width">
           <mat-label>Tên sản phẩm</mat-label>
-          <input matInput formControlName="name" />
-        </mat-form-field>
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Mô tả ngắn</mat-label>
-          <textarea matInput formControlName="brief"></textarea>
+          <input matInput formControlName="BookName" />
         </mat-form-field>
         <div class="quill-input-field">
-          <span class="label d-block mb-2">Mô tả chi tiết</span>
-          <input type="hidden" formControlName="content" />
-          <quill-editor
-            formControlName="content"
+          <quill-editor matInput
+            formControlName="Description"
             [placeholder]="'Nhập mô tả sản phẩm...'"
           ></quill-editor>
         </div>
@@ -42,12 +36,178 @@
             matInput
             type="number"
             placeholder="Ex. 120000"
-            formControlName="price"
+            formControlName="Price"
           />
           <span matSuffix>VNĐ</span>
         </mat-form-field>
       </mat-card-content>
     </mat-card>
+<!--    -->
+    <mat-card class="p-4 mt-4">
+      <mat-card-header>
+        <mat-card-title>Thêm hình ảnh</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <label class="MainImage" for="MainImage">
+          <img
+            src="{{ bookForm.get('MainImage').value}}"
+            *ngIf="!uploadService.imgURL"
+          />
+          <img [src]=" uploadService.imgURL" *ngIf=" uploadService.imgURL" />
+          <div class="bg-hover add-image-icon">
+            <span class="material-icons">
+              add_circle_outline
+            </span>
+          </div>
+          <input
+            class="d-none"
+            type="file"
+            id="MainImage"
+            #MainImage
+            (change)="uploadService.preview(MainImage.files)"
+          />
+        </label>
+        <label class="Image1" for="Image1">
+          <img
+            src="{{ bookForm.get('Image1').value}}"
+            *ngIf="!uploadService.imgURL"
+          />
+          <img [src]=" uploadService.imgURL" *ngIf=" uploadService.imgURL" />
+          <div class="bg-hover add-image-icon">
+            <span class="material-icons">
+              add_circle_outline
+            </span>
+          </div>
+          <input
+            class="d-none"
+            type="file"
+            id="Image1"
+            #Image1
+            (change)="uploadService.preview(Image1.files)"
+          />
+        </label>
+        <label class="Image2" for="Image2">
+          <img
+            src="{{ bookForm.get('Image2').value}}"
+            *ngIf="!uploadService.imgURL"
+          />
+          <img [src]=" uploadService.imgURL" *ngIf=" uploadService.imgURL" />
+          <div class="bg-hover add-image-icon">
+            <span class="material-icons">
+              add_circle_outline
+            </span>
+          </div>
+          <input
+            class="d-none"
+            type="file"
+            id="Image2"
+            #Image2
+            (change)="uploadService.preview(Image2.files)"
+          />
+        </label>
+        <label class="Image3" for="Image3">
+          <img
+            src="{{ bookForm.get('Image3').value}}"
+            *ngIf="!uploadService.imgURL"
+          />
+          <img [src]=" uploadService.imgURL" *ngIf=" uploadService.imgURL" />
+          <div class="bg-hover add-image-icon">
+            <span class="material-icons">
+              add_circle_outline
+            </span>
+          </div>
+          <input
+            class="d-none"
+            type="file"0
+            id="Image3"
+            #Image3
+            (change)="uploadService.preview(Image3.files)"
+          />
+        </label>
+        <label class="Image4" for="Image4">
+          <img
+            src="{{ bookForm.get('MainImage').value}}"
+            *ngIf="!uploadService.imgURL"
+          />
+          <img [src]=" uploadService.imgURL" *ngIf=" uploadService.imgURL" />
+          <div class="bg-hover add-image-icon">
+            <span class="material-icons">
+              add_circle_outline
+            </span>
+          </div>
+          <input
+            class="d-none"
+            type="file"
+            id="Image4"
+            #Image4
+            (change)="uploadService.preview(Image4.files)"
+          />
+        </label>
+        <label class="Image5" for="Image5">
+          <img
+            src="{{ bookForm.get('Image5').value}}"
+            *ngIf="!uploadService.imgURL"
+          />
+          <img [src]=" uploadService.imgURL" *ngIf=" uploadService.imgURL" />
+          <div class="bg-hover add-image-icon">
+            <span class="material-icons">
+              add_circle_outline
+            </span>
+          </div>
+          <input
+            class="d-none"
+            type="file"
+            id="Image5"
+            #Image5
+            (change)="uploadService.preview(Image5.files)"
+          />
+        </label>
+      </mat-card-content>
+    </mat-card>
+<!--    -->
+  </div>
+
+  <div class="col-md-4 col-12">
+    <!-- block -->
+    <mat-card class="pb-2 pl-4 pr-4 pt-4">
+      <mat-card-header>
+        <mat-card-title>Thông tin khác</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="pt-4">
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Nhà xuất bản</mat-label>
+          <mat-select formControlName="AuthorId" required>
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let author of listAuthor" [value]="author.id">
+              {{author.authorName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Loại sách</mat-label>
+          <mat-select formControlName="CategoryId" required>
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let category of listCategory" [value]="category.id">
+              {{category.categoryName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Số lượng</mat-label>
+          <input type="number" matInput formControlName="Quantity" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>SKU</mat-label>
+          <input matInput formControlName="SKU" />
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
 
   </div>
+  <app-footer-tool
+    [delete]="delete"
+    [submit]="submit"
+    [preUrl]="preUrl"
+    [disabledSubmit]="disabledSubmit"
+  ></app-footer-tool>
 </form>

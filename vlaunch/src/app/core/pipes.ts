@@ -22,3 +22,11 @@ export class AvatarPipe implements PipeTransform {
     }
   }
 }
+
+@Pipe({ name: 'url' })
+export class UrlPipe implements PipeTransform {
+  transform(value: string): string {
+    if (value && value !== '') { return environment.IMG_ROOT + value; }
+  }
+}
+

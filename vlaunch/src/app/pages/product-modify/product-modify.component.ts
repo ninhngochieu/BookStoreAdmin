@@ -33,6 +33,8 @@ export class ProductModifyComponent implements OnInit, AfterViewInit{
     this.productModifyService.book.subscribe(res => {
       this.books = res;
       this.dataSource = new MatTableDataSource(this.books);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
     }
   displayedColumns: string[] = [
@@ -53,14 +55,9 @@ export class ProductModifyComponent implements OnInit, AfterViewInit{
   private books: BookProfile[];
 
   ngOnInit(): void {
-    console.log(this.books);
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    }, 1000);
   }
   applyFilter(event: Event): any{
     const filterValue = (event.target as HTMLInputElement).value;

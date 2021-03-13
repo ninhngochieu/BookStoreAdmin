@@ -17,33 +17,35 @@ import { VariantComponent } from 'src/app/pages/variant/variant.component';
 import { ProfileComponent } from 'src/app/pages/profile/profile.component';
 import { AuthService } from '../auth/auth.service';
 import { PaginatorComponent } from 'src/app/components/paginator/paginator.component';
-import {AvatarPipe, FormatPricePipe} from '../../core/pipes';
-import {MatTableModule} from "@angular/material/table";
-import {MatSortModule} from "@angular/material/sort";
+import {AvatarPipe, FormatPricePipe, UrlPipe} from '../../core/pipes';
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    AvatarPipe,
-    FormatPricePipe,
-    HomeComponent,
-    MenuListItemComponent,
-    UserMenuComponent,
-    ProductsComponent,
-    ProductDetailComponent,
-    FooterToolComponent,
-    VariantComponent,
-    ProfileComponent,
-    PaginatorComponent,
+    declarations: [
+        DashboardComponent,
+        AvatarPipe,
+        FormatPricePipe,
+        HomeComponent,
+        MenuListItemComponent,
+        UserMenuComponent,
+        ProductsComponent,
+        ProductDetailComponent,
+        FooterToolComponent,
+        VariantComponent,
+        ProfileComponent,
+        PaginatorComponent,
+        UrlPipe
     ],
-  imports: [
-    CommonModule,
-    MaterialModule,
-    DashboardRoutingModule,
-    QuillModule,
-    ReactiveFormsModule,
-    FormsModule,
-  ],
-  providers: [NavService, AuthService],
+    imports: [
+        CommonModule,
+        MaterialModule,
+        DashboardRoutingModule,
+        QuillModule,
+        ReactiveFormsModule,
+        FormsModule,
+    ],
+    providers: [NavService, AuthService],
+    exports: [
+        FooterToolComponent
+    ]
 })
 export class DashboardModule {}
