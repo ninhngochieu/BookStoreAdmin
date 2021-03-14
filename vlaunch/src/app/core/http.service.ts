@@ -215,12 +215,12 @@ export class HttpService { // Tạo Http Services, có thể dùng Token Interce
           error_message: 'Phiên đăng nhập đã hết hạn vui lòng đăng nhập lại.',
         };
       }
-      // if (error.status === 401 ){
-      //   return {
-      //     error_code: 'token_not_valid',
-      //     error_message: 'Phiên đăng nhập đã hết hạn vui lòng đăng nhập lại.',
-      //   };
-      // }
+      if (error.status === 401 ){
+        return {
+          error_code: 'token_not_valid',
+          error_message: 'Phiên đăng nhập đã hết hạn vui lòng đăng nhập lại.',
+        };
+      }
     };
   }
 }
