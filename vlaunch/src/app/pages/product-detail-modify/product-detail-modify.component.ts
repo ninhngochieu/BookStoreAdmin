@@ -96,7 +96,7 @@ export class ProductDetailModifyComponent implements OnInit {
   }
   private initForm(): void {
     this.bookForm = this.formBuilder.group({
-      BookName: new FormControl('', Validators.required),
+      BookName: new FormControl('', [Validators.required]),
       Description: new FormControl('', Validators.required),
       Price: new FormControl('', Validators.required),
       CategoryId: new FormControl('', Validators.required),
