@@ -197,23 +197,18 @@ export class HttpService { // Tạo Http Services, có thể dùng Token Interce
           error_message: 'Mạng không ổn định, xin vui lòng kiểm tra lại đường truyền.',
         };
       }
-      if (!this.tokenService.getRefreshToken() || this.tokenService.getRefreshToken() === '') {
+      if (error.status === 401 && (!this.tokenService.getRefreshToken() || this.tokenService.getRefreshToken() === '')) {
         return {
           error_code: 'token_not_valid',
           error_message: 'Phiên đăng nhập đã hết hạn vui lòng đăng nhập lại.',
         };
       }
+      this.tokenService.clear();
       const result = await this.refreshTokenModify().toPromise();
       if (result.data.access){
-        this.tokenService.clear();
         this.tokenService.setToken(result.data.access);
         this.tokenService.setRefreshToken(result.data.refresh);
         return await callback().toPromise();
-      }else {
-        return {
-          error_code: 'token_not_valid',
-          error_message: 'Phiên đăng nhập đã hết hạn vui lòng đăng nhập lại.',
-        };
       }
       if (error.status === 401 ){
         return {
