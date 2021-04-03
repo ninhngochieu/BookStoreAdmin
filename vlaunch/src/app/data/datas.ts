@@ -16,11 +16,11 @@ export const NAV_ITEMS: NavItem[] = [
     iconName: 'home',
     route: '',
   },
-  {
-    displayName: 'Sản phẩm',
-    iconName: 'storefront',
-    route: 'dashboard/product',
-  },
+  // {
+  //   displayName: 'Sản phẩm',
+  //   iconName: 'storefront',
+  //   route: 'dashboard/product',
+  // },
   {
     displayName: 'Sản phẩm modify',
     iconName: 'storefront',
@@ -31,7 +31,11 @@ export const NAV_ITEMS: NavItem[] = [
     iconName: 'storefront',
     route: 'dashboard/order',
   },
-
+  {
+    displayName: 'Quản lý User',
+    iconName: 'storefront',
+    route: 'dashboard/user',
+  },
   // {
   //   displayName: 'TextRouter',
   //   iconName: 'videocam',

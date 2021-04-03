@@ -30,7 +30,7 @@ export class VariantService {
   public variant$ = new Subject<Variant>();
   public variants$ = new Subject<Variant[]>();
 
-  init() {
+  init(): any {
     this.productDetailService.productID = this.productID;
     this.productDetailService.getProductImages();
     this.productDetailService.getProductDetail();
@@ -42,7 +42,7 @@ export class VariantService {
     }
   }
 
-  getVariants() {
+  getVariants(): any {
     const url = 'product/' + this.productID + '/variants';
     this.http.get(url).subscribe((res) => {
       if (res && res.success) {
@@ -54,9 +54,9 @@ export class VariantService {
     });
   }
 
-  getVariantDetail() {
+  getVariantDetail(): any {
     const url = 'product/' + this.productID + '/variant/' + this.id;
-    this.http.get(url).subscribe((res) => {
+    this.http.getHandle(url).subscribe((res) => {
       if (res && res.success) {
         this.variant$.next(res.data);
       } else {
@@ -66,9 +66,9 @@ export class VariantService {
     });
   }
 
-  getProductTypeDetail() {
+  getProductTypeDetail(): any {
     const url = 'product-type/' + this.product.product_type.id;
-    this.http.get(url).subscribe((res) => {
+    this.http.getHandle(url).subscribe((res) => {
       if (res && res.success) {
         this.productTypeAttribute$.next(res.data.attributes);
       } else {
@@ -77,11 +77,11 @@ export class VariantService {
     });
   }
 
-  updateProductVariant(data) {
+  updateProductVariant(data): any {
     this.alertService.showProgress();
     if (this.method === 'post') {
       const url = 'product/' + this.productID + '/variants';
-      this.http.post(url, data).subscribe((res) => {
+      this.http.postHandle(url, data).subscribe((res) => {
         if (res && res.success) {
           this.variants.push(res.data);
           this.variants$.next(this.variants);
@@ -96,11 +96,11 @@ export class VariantService {
       });
     } else {
       const url = 'product/' + this.productID + '/variant/' + this.id;
-      this.http.put(url, data).subscribe((res) => {
+      this.http.putHandle(url, data).subscribe((res) => {
         if (res && res.success) {
           this.alertService.successAlert('Cập nhật biến thể thành công.');
-          let index = this.variants.findIndex((i) => i.id === res.data.id);
-          if (index < 0) return;
+          const index = this.variants.findIndex((i) => i.id === res.data.id);
+          if (index < 0) { return; }
           this.variants[index] = res.data;
           this.variants$.next(this.variants);
         } else {
@@ -112,9 +112,9 @@ export class VariantService {
     }
   }
 
-  deleteVariant() {
+  deleteVariant(): any {
     const url = 'product/' + this.productID + '/variant/' + this.id;
-    this.http.delete(url).subscribe((res) => {
+    this.http.deleteHandle(url, {}).subscribe((res) => {
       if (res && res.success) {
         this.alertService.successAlert('Xóa biến thể thành công.');
         this.router.navigate(['dashboard', 'product', this.productID]);
