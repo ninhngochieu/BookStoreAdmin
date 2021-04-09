@@ -34,7 +34,7 @@ export const NAV_ITEMS: NavItem[] = [
   {
     displayName: 'Quản lý User',
     iconName: 'storefront',
-    route: 'dashboard/user',
+    route: 'dashboard/user-manager',
   },
   // {
   //   displayName: 'TextRouter',

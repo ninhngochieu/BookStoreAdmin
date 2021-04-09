@@ -149,16 +149,16 @@ export class HttpService { // Tạo Http Services, có thể dùng Token Interce
 
   }
 
-  putHandle(url: string, data: any): Observable<any>{
+  putHandle(url: string, data?: any): Observable<any>{
     return this.requestModify(Method.put, url, data);
   }
   getHandle(url: string, data?: any): Observable<any>{
     return this.requestModify(Method.get, url, data);
   }
-  postHandle(url: string, data: any): Observable<any>{
+  postHandle(url: string, data?: any): Observable<any>{
     return this.requestModify(Method.post, url, data);
   }
-  deleteHandle(url: string, data: any): Observable<any>{
+  deleteHandle(url: string, data?: any): Observable<any>{
     return this.requestModify(Method.delete, url, data);
   }
 

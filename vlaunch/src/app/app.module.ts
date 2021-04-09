@@ -18,6 +18,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import { ProductDetailModifyComponent } from './pages/product-detail-modify/product-detail-modify.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { UserManagerComponent } from './pages/user-manager/user-manager.component';
+
 
 
 @NgModule({
@@ -28,6 +30,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     ImageDialogComponent,
     ProductModifyComponent,
     ProductDetailModifyComponent,
+    UserManagerComponent,
   ],
   imports: [
     BrowserModule,

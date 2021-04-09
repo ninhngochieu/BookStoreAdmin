@@ -9,6 +9,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { DashboardComponent } from './dashboard.component';
 import {ProductModifyComponent} from "../../pages/product-modify/product-modify.component";
 import {ProductDetailModifyComponent} from "../../pages/product-detail-modify/product-detail-modify.component";
+import {UserManagerComponent} from "../../pages/user-manager/user-manager.component";
 
 const dashboardRoutes: Routes = [
   {
@@ -43,6 +44,14 @@ const dashboardRoutes: Routes = [
         path: 'profile',
         component: ProfileComponent,
       },
+      {
+        path: 'user-manager',
+        children: [
+          { path: '', component: UserManagerComponent },
+          {path: 'add', component: UserManagerComponent},
+          {path: 'edit/:id', component: UserManagerComponent}
+        ],
+      }
     ],
     component: DashboardComponent,
   },
