@@ -38,4 +38,8 @@ export class TokenService {
   clear(): any {
     localStorage.clear();
   }
+
+  clearToken(): any {
+    localStorage.removeItem('token');
+  }
 }

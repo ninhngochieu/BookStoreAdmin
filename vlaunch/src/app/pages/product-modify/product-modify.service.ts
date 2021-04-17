@@ -21,7 +21,7 @@ export class ProductModifyService {
       if (res.success) {
         this.bookSubject.next(res.data);
       } else {
-        this.alertService.errorAlert({error_message: 'Có lỗi trong quá trình lấy thông tin sách'});
+        this.alertService.errorAlert(res);
       }
     });
   }

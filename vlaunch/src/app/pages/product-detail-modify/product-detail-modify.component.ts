@@ -132,6 +132,7 @@ export class ProductDetailModifyComponent implements OnInit {
     }
     this.productDetailModifyService.book.subscribe(res => {
       data = res;
+      console.log(res);
       if (isEmpty(data)) { return; }
       else { this.isUpdate = true; }
       this.bookForm.setValue({
@@ -142,10 +143,10 @@ export class ProductDetailModifyComponent implements OnInit {
         AuthorId: data.authorId,
         Quantity: data.quantity,
         MainImage: data.mainImage,
-        Image1: data.image1,
-        Image2: data.image2,
-        Image3: data.image3,
-        Image4: data.image4,
+        Image1: data.bookImageViewModel.image1,
+        Image2: data.bookImageViewModel.image2,
+        Image3: data.bookImageViewModel.image3,
+        Image4: data.bookImageViewModel.image4,
       });
     });
   }

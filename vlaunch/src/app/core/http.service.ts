@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap, timeout } from 'rxjs/operators';
@@ -191,7 +191,7 @@ export class HttpService { // Tạo Http Services, có thể dùng Token Interce
     return response;
   }
   private processError(callback?: any): any {
-    return async (error: any): Promise<any> => {
+    return async (error: HttpErrorResponse): Promise<any> => {
       if (error.status === 0){
         return {
           error_message: 'Mạng không ổn định, xin vui lòng kiểm tra lại đường truyền.',
@@ -203,7 +203,7 @@ export class HttpService { // Tạo Http Services, có thể dùng Token Interce
           error_message: 'Phiên đăng nhập đã hết hạn vui lòng đăng nhập lại.',
         };
       }
-      this.tokenService.clear();
+      this.tokenService.clearToken();
       const result = await this.refreshTokenModify().toPromise();
       if (result.data.access){
         this.tokenService.setToken(result.data.access);

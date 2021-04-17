@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject, Subscription} from 'rxjs';
 import { UserProfile } from 'src/app/models/user_profile';
 import { AlertService } from '../../core/alert.service';
 import { HttpService } from '../../core/http.service';
 import {TokenService} from '../../core/token.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 const internetError = 'Mạng không ổn định, xin vui lòng kiểm tra lại mạng';
 
@@ -17,6 +18,7 @@ export class AuthService {
     private alertService: AlertService,
     private router: Router,
     private tokenService: TokenService,
+    private matSnackBar: MatSnackBar
   ) {
     this.checkLogin();
   }
@@ -27,6 +29,7 @@ export class AuthService {
   isLogin = false;
   // store the URL so we can redirect after logging in
   redirectUrl: string;
+  private subscription: Subscription;
 
   checkLogin(): void {
     const token = localStorage.getItem('token');
@@ -69,13 +72,20 @@ export class AuthService {
 
   updateProfile(data: FormData): any {
     const url = 'userauth/profile/' + this.tokenService.getUserId();
-    this.httpService.putHandle(url, data).subscribe(
+    this.subscription =  this.httpService.putHandle(url, data).subscribe(
       res => {
           if (res.success){
             this.profileSubject.next({ ...res.data });
-            this.alertService.successAlert('Cập nhật thông tin cá nhân thành công.');
+            // this.alertService.successAlert('Cập nhật thông tin cá nhân thành công.');
+            console.log(res);
+            this.matSnackBar.open('Cập nhật thông tin cá nhân thành công', 'Close', {
+              duration: 2000
+            });
           }else {
-            this.alertService.errorAlert(res);
+            // this.alertService.errorAlert(res);
+            this.matSnackBar.open(res.error_message, 'Close', {
+              duration: 2000
+            });
           }
       }
     );
