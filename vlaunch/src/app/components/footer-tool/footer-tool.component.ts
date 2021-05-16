@@ -28,6 +28,7 @@ export class FooterToolComponent implements OnInit {
   @Input()
   disabledSubmit = false;
 
+
   ngOnInit(): void {}
 
   goBack(): any {
