@@ -23,17 +23,17 @@ export const NAV_ITEMS: NavItem[] = [
   // },
   {
     displayName: 'Sản phẩm modify',
-    iconName: 'storefront',
+    iconName: 'library_books',
     route: 'dashboard/product-modify',
   },
   {
     displayName: 'Đơn hàng',
-    iconName: 'storefront',
+    iconName: 'list_alt',
     route: 'dashboard/order',
   },
   {
     displayName: 'Quản lý User',
-    iconName: 'storefront',
+    iconName: 'people',
     route: 'dashboard/user-manager',
   },
   // {

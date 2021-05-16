@@ -46,7 +46,8 @@ import {AvatarPipe, FormatPricePipe, UrlPipe} from '../../core/pipes';
     providers: [NavService, AuthService],
     exports: [
         FooterToolComponent,
-        UrlPipe
+        UrlPipe,
+        FormatPricePipe
     ]
 })
 export class DashboardModule {}

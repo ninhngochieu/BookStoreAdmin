@@ -10,6 +10,7 @@ import { DashboardComponent } from './dashboard.component';
 import {ProductModifyComponent} from "../../pages/product-modify/product-modify.component";
 import {ProductDetailModifyComponent} from "../../pages/product-detail-modify/product-detail-modify.component";
 import {UserManagerComponent} from "../../pages/user-manager/user-manager.component";
+import {OrderComponent} from '../../pages/order/order.component';
 
 const dashboardRoutes: Routes = [
   {
@@ -43,6 +44,10 @@ const dashboardRoutes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
+      },
+      {
+        path: 'order',
+        component: OrderComponent,
       },
       {
         path: 'user-manager',
