@@ -46,3 +46,44 @@
     </div>
   </div>
 </div>
+<h3>Thống kê doanh thu và sản phẩm</h3>
+<div class="container bootstrap snippets bootdey">
+  <div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="mini-stat clearfix bg-facebook rounded">
+        <span class="mini-stat-icon"><mat-icon>attach_money</mat-icon></span>
+        <div class="mini-stat-info">
+          <span>{{this.getTotalInvoice()}}</span>
+          Tổng doanh thu
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="mini-stat clearfix bg-twitter rounded">
+        <span class="mini-stat-icon"><mat-icon>library_books</mat-icon></span>
+        <div class="mini-stat-info">
+          <span>{{this.getProcessInvoice()}}</span>
+          Sản phẩm đang bán
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="mini-stat clearfix bg-googleplus rounded">
+        <span class="mini-stat-icon">	<mat-icon>info</mat-icon></span>
+        <div class="mini-stat-info">
+          <span>{{this.getSuccessInvoice()}}</span>
+          Số sản phẩm hết hàng
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="mini-stat clearfix bg-bitbucket rounded">
+        <span class="mini-stat-icon"><mat-icon>block</mat-icon></span>
+        <div class="mini-stat-info">
+          <span>{{this.getCancelInvoice()}}</span>
+          Sản phẩm bị vô hiệu hóa
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
