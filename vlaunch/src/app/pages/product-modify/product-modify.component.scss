@@ -113,14 +113,11 @@ table {
   width: 100%;
 }
 
-td, th {
-  width: 25%;
-}
-
 .mat-row:hover {
   background-color: whitesmoke;
   cursor: pointer;
 }
 th{
+  text-align: center;
   font-weight: 700;
 }
