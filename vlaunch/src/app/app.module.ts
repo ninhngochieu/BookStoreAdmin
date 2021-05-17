@@ -24,31 +24,34 @@ import { OrderComponent } from './pages/order/order.component';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PageNotFoundComponent,
-    AlertComponent,
-    ImageDialogComponent,
-    ProductModifyComponent,
-    ProductDetailModifyComponent,
-    UserManagerComponent,
-    OrderComponent,
-  ],
-  imports: [
-    BrowserModule,
-    QuillModule.forRoot({modules: QUILL_CONFIG}),
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    AuthModule,
-    HeroesModule,
-    DashboardModule,
-    AppRoutingModule,
-    MatTableModule,
-    MatSortModule,
-    ReactiveFormsModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
+    declarations: [
+        AppComponent,
+        PageNotFoundComponent,
+        AlertComponent,
+        ImageDialogComponent,
+        ProductModifyComponent,
+        ProductDetailModifyComponent,
+        UserManagerComponent,
+        OrderComponent,
+    ],
+    imports: [
+        BrowserModule,
+        QuillModule.forRoot({modules: QUILL_CONFIG}),
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        AuthModule,
+        HeroesModule,
+        DashboardModule,
+        AppRoutingModule,
+        MatTableModule,
+        MatSortModule,
+        ReactiveFormsModule,
+    ],
+    providers: [],
+    bootstrap: [AppComponent],
+    exports: [
+        OrderComponent
+    ]
 })
 export class AppModule {}

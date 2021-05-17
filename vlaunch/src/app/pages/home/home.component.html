@@ -12,7 +12,7 @@
       <div class="mini-stat clearfix bg-facebook rounded">
         <span class="mini-stat-icon"><mat-icon>assignment</mat-icon></span>
         <div class="mini-stat-info">
-          <span>10</span>
+          <span>{{this.getTotalInvoice()}}</span>
           Tổng đơn hàng
         </div>
       </div>
@@ -21,7 +21,7 @@
       <div class="mini-stat clearfix bg-twitter rounded">
         <span class="mini-stat-icon"><mat-icon>enhanced_encryption</mat-icon></span>
         <div class="mini-stat-info">
-          <span>10</span>
+          <span>{{this.getProcessInvoice()}}</span>
           Chờ xử lý
         </div>
       </div>
@@ -30,7 +30,7 @@
       <div class="mini-stat clearfix bg-googleplus rounded">
         <span class="mini-stat-icon">	<mat-icon>card_giftcard</mat-icon></span>
         <div class="mini-stat-info">
-          <span>10</span>
+          <span>{{this.getSuccessInvoice()}}</span>
           Đang giao hàng
         </div>
       </div>
@@ -39,7 +39,7 @@
       <div class="mini-stat clearfix bg-bitbucket rounded">
         <span class="mini-stat-icon"><mat-icon>cancel_presentation</mat-icon></span>
         <div class="mini-stat-info">
-          <span>10</span>
+          <span>{{this.getCancelInvoice()}}</span>
           Đã hủy
         </div>
       </div>
