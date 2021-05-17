@@ -35,14 +35,14 @@ import {AvatarPipe, FormatPricePipe, UrlPipe} from '../../core/pipes';
         PaginatorComponent,
         UrlPipe
     ],
-    imports: [
-        CommonModule,
-        MaterialModule,
-        DashboardRoutingModule,
-        QuillModule,
-        ReactiveFormsModule,
-        FormsModule,
-    ],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    DashboardRoutingModule,
+    QuillModule,
+    ReactiveFormsModule,
+    FormsModule
+  ],
     providers: [NavService, AuthService],
     exports: [
         FooterToolComponent,
