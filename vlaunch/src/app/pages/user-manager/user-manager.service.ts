@@ -4,13 +4,14 @@ import {BehaviorSubject} from 'rxjs';
 import {Role, User} from '../../models/user';
 import {AuthService} from '../../modules/auth/auth.service';
 import {Response} from '../../models/response';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserManagerService {
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService, private matSnackBar: MatSnackBar) { }
   private userSubject = new BehaviorSubject(new Array(new User()));
   user = this.userSubject.asObservable();
 
@@ -38,7 +39,14 @@ export class UserManagerService {
     const url = 'UserAuth/UpdateStatusAndRole';
     this.httpService.putHandle(url, formData).subscribe(res => {
       console.log(res);
-      this.statusAndRoleSubject.next(res);
+      if (res.success){
+        this.statusAndRoleSubject.next(res);
+      }else {
+        this.matSnackBar.open(res.error_message, 'Close', {
+          duration: 3000
+        });
+        this.getAllUserInfo();
+      }
    });
   }
 }

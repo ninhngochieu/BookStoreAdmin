@@ -197,6 +197,16 @@ export class HttpService { // Tạo Http Services, có thể dùng Token Interce
           error_message: 'Mạng không ổn định, xin vui lòng kiểm tra lại đường truyền.',
         };
       }
+      if (error.status === 403){
+        return {
+          error_message: 'Bạn cần quyền Admin để truy cập tài nguyên này!'
+        };
+      }
+      if (error.status === 500) {
+        return {
+          error_message: 'Lỗi server!'
+        };
+      }
       if (error.status === 401 && (!this.tokenService.getRefreshToken() || this.tokenService.getRefreshToken() === '')) {
         return {
           error_code: 'token_not_valid',

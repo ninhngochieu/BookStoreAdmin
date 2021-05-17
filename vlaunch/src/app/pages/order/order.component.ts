@@ -14,7 +14,7 @@ const NAMES: string[] = [
   'Isabella', 'Jasper', 'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'
 ];
 
-class Invoice {
+export class Invoice {
   id: number;
   'createAt': '2021-05-12T18:36:15.362797';
   totalMoney: number;
@@ -51,12 +51,12 @@ export class OrderComponent implements OnInit, AfterViewInit {
 
   constructor(private orderService: OrderService) {
     // Create 100 users
-    this.orderService.getAllInvoice().subscribe(res => {
+    this.orderService.getAllInvoice();
+    this.orderService.$invoice.subscribe(res => {
       this.users = res;
       this.dataSource = new MatTableDataSource(this.users);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-
     });
     // Assign the data to the data source for the table to render
   }
@@ -74,5 +74,14 @@ export class OrderComponent implements OnInit, AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  cancelInvoice(id): any {
+    this.orderService.cancelInvoice(id);
+  }
+
+  acceptInvoice(id): any {
+    console.log(id);
+    this.orderService.acceptInvoice(id);
   }
 }

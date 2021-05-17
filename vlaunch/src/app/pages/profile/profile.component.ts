@@ -65,6 +65,8 @@ export class ProfileComponent implements OnInit {
       console.log(this.uploadService.imagePath);
     }
 
+    console.log(formValue);
+
     this.authService.updateProfile(formData);
   }
 
