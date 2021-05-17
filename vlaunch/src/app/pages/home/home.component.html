@@ -53,7 +53,7 @@
       <div class="mini-stat clearfix bg-facebook rounded">
         <span class="mini-stat-icon"><mat-icon>attach_money</mat-icon></span>
         <div class="mini-stat-info">
-          <span>{{this.getTotalInvoice()}}</span>
+          <span>{{this.getTotalMoney() | formatPrice}}đ</span>
           Tổng doanh thu
         </div>
       </div>
@@ -62,7 +62,7 @@
       <div class="mini-stat clearfix bg-twitter rounded">
         <span class="mini-stat-icon"><mat-icon>library_books</mat-icon></span>
         <div class="mini-stat-info">
-          <span>{{this.getProcessInvoice()}}</span>
+          <span>{{this.getActiveProduct()}}</span>
           Sản phẩm đang bán
         </div>
       </div>
@@ -71,7 +71,7 @@
       <div class="mini-stat clearfix bg-googleplus rounded">
         <span class="mini-stat-icon">	<mat-icon>info</mat-icon></span>
         <div class="mini-stat-info">
-          <span>{{this.getSuccessInvoice()}}</span>
+          <span>{{this.getOutstockProduct()}}</span>
           Số sản phẩm hết hàng
         </div>
       </div>
@@ -80,7 +80,7 @@
       <div class="mini-stat clearfix bg-bitbucket rounded">
         <span class="mini-stat-icon"><mat-icon>block</mat-icon></span>
         <div class="mini-stat-info">
-          <span>{{this.getCancelInvoice()}}</span>
+          <span>{{this.getPrivateProduct()}}</span>
           Sản phẩm bị vô hiệu hóa
         </div>
       </div>
