@@ -42,7 +42,7 @@ export class Invoice {
   styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'name', 'address', 'date', 'totalmoney', 'status', 'action'];
+  displayedColumns: string[] = ['id', 'name', 'address', 'createAt', 'totalMoney', 'statusId', 'action'];
   dataSource: MatTableDataSource<Invoice>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
