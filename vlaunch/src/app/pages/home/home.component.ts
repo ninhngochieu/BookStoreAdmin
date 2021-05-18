@@ -105,10 +105,8 @@ export class HomeComponent implements OnInit {
   getPrivateProduct(): any {
     let sum = 0;
     this.bookList.forEach(x => {
-      if (x.private === false){
-      }else {
+      if(x.private){
         sum += 1;
-        console.log(sum);
       }
     });
     return sum;

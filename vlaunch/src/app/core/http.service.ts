@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, switchMap, timeout } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import {TokenService} from './token.service';
+import * as url from 'url';
 
 @Injectable({
   providedIn: 'root',
@@ -205,6 +206,14 @@ export class HttpService { // Tạo Http Services, có thể dùng Token Interce
       if (error.status === 500) {
         return {
           error_message: 'Lỗi server!'
+        };
+      }
+      const urlArray = error.url.split('/');
+      const urlToken = urlArray[urlArray.length - 1];
+      if (error.status === 401 && urlToken === 'refresh') {
+        return {
+          error_code: 'token_not_valid',
+          error_message: 'Phiên đăng nhập đã hết hạn vui lòng đăng nhập lại.',
         };
       }
       if (error.status === 401 && (!this.tokenService.getRefreshToken() || this.tokenService.getRefreshToken() === '')) {
