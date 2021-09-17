@@ -10,6 +10,8 @@ RUN yarn build
 
 FROM nginx:alpine
 
+COPY default.conf.template /etc/nginx/conf.d/default.conf.template
+
 COPY nginx.conf /etc/nginx/nginx.conf
 
 COPY --from=node /app/dist/vlaunch/. /usr/share/nginx/html
