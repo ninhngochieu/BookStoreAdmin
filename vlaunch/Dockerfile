@@ -6,13 +6,16 @@ COPY . /app
 
 RUN yarn install
 
-RUN yarn build
+ENTRYPOINT ["npm","run","start"]
 
-FROM nginx
+# RUN yarn build
+
+
+# FROM nginx
 
 # COPY nginx.conf /etc/nginx/nginx.conf
 
-COPY --from=node /app/dist/vlaunch/. /usr/share/nginx/html
+# COPY --from=node /app/dist/vlaunch/. /usr/share/nginx/html
 
 # ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
