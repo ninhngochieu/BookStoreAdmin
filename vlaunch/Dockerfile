@@ -6,16 +6,13 @@ COPY . /app
 
 RUN yarn install
 
-# ENTRYPOINT ["yarn","run","start"]
+RUN yarn build
 
-# RUN yarn build
+FROM nginx
 
+COPY default.conf.template /etc/nginx/conf.d/default.conf.template
 
-# FROM nginx
+COPY --from=node /app/dist/vlaunch/. /usr/share/nginx/html
 
-# COPY nginx.conf /etc/nginx/nginx.conf
-
-# COPY --from=node /app/dist/vlaunch/. /usr/share/nginx/html
-
-# ENTRYPOINT ["nginx", "-g", "daemon off;"]
+CMD /bin/bash -c "envsubst '\$PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf" && nginx -g 'daemon off;'
 
